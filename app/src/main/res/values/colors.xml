@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimaryLight">#E8DEF8</color>
+    
+    <!-- Status Colors -->
+    <color name="statusAvailable">#4CAF50</color>
+    <color name="statusBooked">#2196F3</color>
+    <color name="statusCompleted">#9E9E9E</color>
+    <color name="statusCancelled">#F44336</color>
+    
+    <!-- Session Status Colors -->
+    <color name="statusPending">#FF9800</color>
+    <color name="statusConfirmed">#2196F3</color>
+    <color name="statusPaid">#4CAF50</color>
+</resources>

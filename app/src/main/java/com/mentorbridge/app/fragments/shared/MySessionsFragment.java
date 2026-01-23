@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.tabs.TabLayout;
 import com.mentorbridge.app.R;
 import com.mentorbridge.app.adapters.SessionAdapter;
 import com.mentorbridge.app.models.Session;
@@ -29,11 +30,14 @@ public class MySessionsFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefresh;
     private ProgressBar progressBar;
+    private TabLayout statusTabLayout;
     
     private ApiClient apiClient;
     private SessionManager sessionManager;
     private SessionAdapter adapter;
     private List<Session> sessionList = new ArrayList<>();
+    private List<Session> allSessions = new ArrayList<>();
+    private String currentFilter = "all";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class MySessionsFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
 
         initViews(view);
+        setupTabLayout();
         loadSessions();
 
         return view;
@@ -52,6 +57,7 @@ public class MySessionsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         progressBar = view.findViewById(R.id.progressBar);
+        statusTabLayout = view.findViewById(R.id.statusTabLayout);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         
@@ -79,6 +85,56 @@ public class MySessionsFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(() -> loadSessions());
     }
 
+    private void setupTabLayout() {
+        statusTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch (position) {
+                    case 0:
+                        currentFilter = "all";
+                        break;
+                    case 1:
+                        currentFilter = "pending";
+                        break;
+                    case 2:
+                        currentFilter = "confirmed";
+                        break;
+                    case 3:
+                        currentFilter = "completed";
+                        break;
+                    case 4:
+                        currentFilter = "cancelled";
+                        break;
+                }
+                filterSessions();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+    private void filterSessions() {
+        sessionList.clear();
+        
+        if (currentFilter.equals("all")) {
+            sessionList.addAll(allSessions);
+        } else {
+            for (Session session : allSessions) {
+                if (session.getStatus().equalsIgnoreCase(currentFilter) ||
+                    (currentFilter.equals("confirmed") && session.getStatus().equalsIgnoreCase("upcoming"))) {
+                    sessionList.add(session);
+                }
+            }
+        }
+        
+        adapter.notifyDataSetChanged();
+    }
+
     private void loadSessions() {
         showLoading(true);
 
@@ -89,7 +145,7 @@ public class MySessionsFragment extends Fragment {
                     try {
                         if (response.getBoolean("success")) {
                             JSONArray data = response.getJSONArray("data");
-                            sessionList.clear();
+                            allSessions.clear();
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject obj = data.getJSONObject(i);
                                 Session session = new Session();
@@ -100,9 +156,9 @@ public class MySessionsFragment extends Fragment {
                                 session.setPaymentStatus(obj.getString("payment_status"));
                                 session.setMentorName(obj.getString("mentor_name"));
                                 session.setMenteeName(obj.getString("mentee_name"));
-                                sessionList.add(session);
+                                allSessions.add(session);
                             }
-                            adapter.notifyDataSetChanged();
+                            filterSessions();
                         }
                     } catch (Exception e) {
                         Toast.makeText(requireContext(), "Error loading sessions", Toast.LENGTH_SHORT).show();

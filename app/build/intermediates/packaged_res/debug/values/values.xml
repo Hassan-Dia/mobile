@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimaryLight">#E8DEF8</color>
+    <color name="statusAvailable">#4CAF50</color>
+    <color name="statusBooked">#2196F3</color>
+    <color name="statusCancelled">#F44336</color>
+    <color name="statusCompleted">#9E9E9E</color>
+    <color name="statusConfirmed">#2196F3</color>
+    <color name="statusPaid">#4CAF50</color>
+    <color name="statusPending">#FF9800</color>
+    <string name="add_time_slot">Add Time Slot</string>
+    <string name="admin">Admin</string>
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="all">All</string>
+    <string name="all_categories">All Categories</string>
+    <string name="app_logo">App Logo</string>
+    <string name="app_name">MentorBridge</string>
+    <string name="app_tagline">Connect. Learn. Grow.</string>
+    <string name="approvals">Approvals</string>
+    <string name="approve">Approve</string>
+    <string name="approved">Approved</string>
+    <string name="availability">Availability</string>
+    <string name="available">Available</string>
+    <string name="available_slots">Available Time Slots</string>
+    <string name="avg_rating">Avg Rating</string>
+    <string name="bio">Bio / About You</string>
+    <string name="book_session">Book Session</string>
+    <string name="booked">Booked</string>
+    <string name="browse_categories">Browse by Category</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="category_icon">Category Icon</string>
+    <string name="complete">Complete</string>
+    <string name="completed">Completed</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="contact">Contact</string>
+    <string name="cost">Cost</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="date">Date</string>
+    <string name="duration">Duration</string>
+    <string name="duration_hours">Duration (hours)</string>
+    <string name="email">Email</string>
+    <string name="expertise">Expertise (e.g., Java, Web Dev)</string>
+    <string name="explore_mentors">Explore mentors and book your first session</string>
+    <string name="feedback">Feedback</string>
+    <string name="full_name">Full Name</string>
+    <string name="home">Home</string>
+    <string name="hourly_rate">Hourly Rate ($)</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="manage_availability">Manage Availability</string>
+    <string name="manage_your_profile">Manage your profile and sessions</string>
+    <string name="mentee">Mentee</string>
+    <string name="mentor">Mentor</string>
+    <string name="mentor_dashboard">Mentor Dashboard</string>
+    <string name="mentor_details">Mentor Details</string>
+    <string name="mentor_info">Mentor Information</string>
+    <string name="mentors">Mentors</string>
+    <string name="my_sessions">My Sessions</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="no_mentors_found">No mentors found</string>
+    <string name="no_pending_approvals">No pending approvals</string>
+    <string name="no_reviews">No reviews yet</string>
+    <string name="no_sessions_found">No sessions found</string>
+    <string name="no_slots_available">No time slots available</string>
+    <string name="notes_optional">Notes (optional)</string>
+    <string name="password">Password</string>
+    <string name="pay">Pay</string>
+    <string name="pending">Pending</string>
+    <string name="pending_approvals">Pending Approvals</string>
+    <string name="pending_mentor_approvals">Pending Mentor Approvals</string>
+    <string name="platform_overview">Platform Overview</string>
+    <string name="platform_stats">Platform Statistics</string>
+    <string name="profile">Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="register">Register</string>
+    <string name="register_as">Register as</string>
+    <string name="reject">Reject</string>
+    <string name="rejected">Rejected</string>
+    <string name="review_mentor_applications">Review mentor applications</string>
+    <string name="reviews">Reviews</string>
+    <string name="search_mentors">Search mentors…</string>
+    <string name="select_date">Select Date</string>
+    <string name="session_details">Session Details</string>
+    <string name="set_your_schedule">Set your available time slots</string>
+    <string name="status">Status</string>
+    <string name="time">Time</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="total_earnings">Total Earnings</string>
+    <string name="total_mentees">Total Mentees</string>
+    <string name="total_mentors">Total Mentors</string>
+    <string name="total_revenue">Total Revenue</string>
+    <string name="total_sessions">Total Sessions</string>
+    <string name="total_users">Total Users</string>
+    <string name="welcome_mentee">Welcome to MentorBridge</string>
+    <string name="your_stats">Your Stats</string>
+    <style name="AppTheme" parent="Theme.MentorBridge"/>
+    <style name="SplashTheme" parent="Theme.MentorBridge.Splash"/>
+    <style name="Theme.MentorBridge" parent="Theme.Material3.Light.NoActionBar">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        
+        
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        
+        
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+    <style name="Theme.MentorBridge.Splash" parent="Theme.MentorBridge">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+</resources>

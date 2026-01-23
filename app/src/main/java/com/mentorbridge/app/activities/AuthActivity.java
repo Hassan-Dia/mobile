@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.tabs.TabLayout;
 import com.mentorbridge.app.R;
 import com.mentorbridge.app.models.Profile;
 import com.mentorbridge.app.models.User;
@@ -41,6 +42,7 @@ public class AuthActivity extends AppCompatActivity {
     private TextView txtSwitchToLogin;
     
     private ProgressBar progressBar;
+    private TabLayout tabLayout;
     private SessionManager sessionManager;
     private ApiClient apiClient;
 
@@ -76,6 +78,7 @@ public class AuthActivity extends AppCompatActivity {
         txtSwitchToLogin = findViewById(R.id.txtSwitchToLogin);
         
         progressBar = findViewById(R.id.progressBar);
+        tabLayout = findViewById(R.id.tabLayout);
     }
 
     private void setupListeners() {
@@ -83,18 +86,44 @@ public class AuthActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(v -> handleRegister());
         txtSwitchToRegister.setOnClickListener(v -> showRegisterView());
         txtSwitchToLogin.setOnClickListener(v -> showLoginView());
+        
+        // Setup TabLayout listener
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    showLoginView();
+                } else {
+                    showRegisterView();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     private void showLoginView() {
         isLoginMode = true;
         loginView.setVisibility(View.VISIBLE);
         registerView.setVisibility(View.GONE);
+        if (tabLayout.getSelectedTabPosition() != 0) {
+            TabLayout.Tab tab = tabLayout.getTabAt(0);
+            if (tab != null) tab.select();
+        }
     }
 
     private void showRegisterView() {
         isLoginMode = false;
         loginView.setVisibility(View.GONE);
         registerView.setVisibility(View.VISIBLE);
+        if (tabLayout.getSelectedTabPosition() != 1) {
+            TabLayout.Tab tab = tabLayout.getTabAt(1);
+            if (tab != null) tab.select();
+        }
     }
 
     private void handleLogin() {
@@ -108,11 +137,6 @@ public class AuthActivity extends AppCompatActivity {
 
         if (!Utils.isValidEmail(email)) {
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!Utils.isNetworkAvailable(this)) {
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -202,11 +226,6 @@ public class AuthActivity extends AppCompatActivity {
             return;
         }
 
-        if (!Utils.isNetworkAvailable(this)) {
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         showLoading(true);
 
         try {
@@ -230,10 +249,13 @@ public class AuthActivity extends AppCompatActivity {
                             user.setEmail(data.getString("email"));
                             user.setRole(data.getString("role"));
                             
-                            Profile profile = new Profile();
-                            profile.setId(data.getInt("profile_id"));
-                            profile.setFullName(fullName);
-                            user.setProfile(profile);
+                            if (data.has("profile") && !data.isNull("profile")) {
+                                JSONObject profileData = data.getJSONObject("profile");
+                                Profile profile = new Profile();
+                                profile.setId(profileData.getInt("id"));
+                                profile.setFullName(profileData.getString("full_name"));
+                                user.setProfile(profile);
+                            }
                             
                             sessionManager.createSession(user);
                             

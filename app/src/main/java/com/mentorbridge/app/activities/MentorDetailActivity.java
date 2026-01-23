@@ -46,7 +46,7 @@ public class MentorDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView txtRatingCount;
     private RecyclerView recyclerAvailability, recyclerReviews;
-    private Button btnBookSession, btnContactEmail, btnContactPhone;
+    private Button btnBookSession, btnContactPhone;
     
     private ApiClient apiClient;
     private SessionManager sessionManager;
@@ -90,14 +90,12 @@ public class MentorDetailActivity extends AppCompatActivity {
         recyclerReviews = findViewById(R.id.recyclerReviews);
         
         btnBookSession = findViewById(R.id.btnBookSession);
-        btnContactEmail = findViewById(R.id.btnContactEmail);
         btnContactPhone = findViewById(R.id.btnContactPhone);
 
         recyclerAvailability.setLayoutManager(new LinearLayoutManager(this));
         recyclerReviews.setLayoutManager(new LinearLayoutManager(this));
 
         btnBookSession.setOnClickListener(v -> openBookSession());
-        btnContactEmail.setOnClickListener(v -> contactEmail());
         btnContactPhone.setOnClickListener(v -> contactPhone());
     }
 

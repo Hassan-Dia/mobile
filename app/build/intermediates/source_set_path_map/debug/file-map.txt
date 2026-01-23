@@ -1,0 +1,48 @@
+com.mentorbridge.app-appcompat-resources-1.6.1-0 C:\Users\Invader\.gradle\caches\transforms-3\02c79a38475b260640d094e77a2b2c56\transformed\appcompat-resources-1.6.1\res
+com.mentorbridge.app-window-1.0.0-1 C:\Users\Invader\.gradle\caches\transforms-3\0900d8d79632a05eaa01f673d7e179d5\transformed\window-1.0.0\res
+com.mentorbridge.app-coordinatorlayout-1.1.0-2 C:\Users\Invader\.gradle\caches\transforms-3\1abb1035bb8a9c4eb057e4213de35400\transformed\coordinatorlayout-1.1.0\res
+com.mentorbridge.app-emoji2-1.2.0-3 C:\Users\Invader\.gradle\caches\transforms-3\1b9996c08011e841824064a663be72df\transformed\emoji2-1.2.0\res
+com.mentorbridge.app-fragment-1.6.2-4 C:\Users\Invader\.gradle\caches\transforms-3\2204c89bc8ba9eb4c4081c655fe51eb3\transformed\fragment-1.6.2\res
+com.mentorbridge.app-recyclerview-1.3.2-5 C:\Users\Invader\.gradle\caches\transforms-3\2f4c5009e19be168bbbd44bc6887a962\transformed\recyclerview-1.3.2\res
+com.mentorbridge.app-appcompat-1.6.1-6 C:\Users\Invader\.gradle\caches\transforms-3\38fdf4e56534b3c4c6a8297bf7eeddee\transformed\appcompat-1.6.1\res
+com.mentorbridge.app-constraintlayout-2.1.4-7 C:\Users\Invader\.gradle\caches\transforms-3\395d71d697a2819f71d941e83c2d5fe8\transformed\constraintlayout-2.1.4\res
+com.mentorbridge.app-navigation-ui-2.7.6-8 C:\Users\Invader\.gradle\caches\transforms-3\3a283e949c7ca9d5f2cda73b608a0176\transformed\navigation-ui-2.7.6\res
+com.mentorbridge.app-startup-runtime-1.1.1-9 C:\Users\Invader\.gradle\caches\transforms-3\4573a54a4cb907959ef8ca8349b0a217\transformed\startup-runtime-1.1.1\res
+com.mentorbridge.app-slidingpanelayout-1.2.0-10 C:\Users\Invader\.gradle\caches\transforms-3\5faf4f37a2464b5e2559ef5de2aa12e8\transformed\slidingpanelayout-1.2.0\res
+com.mentorbridge.app-lifecycle-viewmodel-2.6.2-11 C:\Users\Invader\.gradle\caches\transforms-3\6bc166035d8267282a555396de897cce\transformed\lifecycle-viewmodel-2.6.2\res
+com.mentorbridge.app-fragment-ktx-1.6.2-12 C:\Users\Invader\.gradle\caches\transforms-3\747760994cc26c40cc8a71ed06c48693\transformed\fragment-ktx-1.6.2\res
+com.mentorbridge.app-lifecycle-runtime-2.6.2-13 C:\Users\Invader\.gradle\caches\transforms-3\82a171cbc173eed2d400deed2a7c271a\transformed\lifecycle-runtime-2.6.2\res
+com.mentorbridge.app-navigation-runtime-2.7.6-14 C:\Users\Invader\.gradle\caches\transforms-3\8c4515e96450675135643c7de1cf46d5\transformed\navigation-runtime-2.7.6\res
+com.mentorbridge.app-viewpager2-1.1.0-beta02-15 C:\Users\Invader\.gradle\caches\transforms-3\94625e9adf76b68b64b5a9393eec559a\transformed\viewpager2-1.1.0-beta02\res
+com.mentorbridge.app-activity-ktx-1.8.0-16 C:\Users\Invader\.gradle\caches\transforms-3\9932b7039415b854ef7499ef4391fa7a\transformed\activity-ktx-1.8.0\res
+com.mentorbridge.app-lifecycle-livedata-core-2.6.2-17 C:\Users\Invader\.gradle\caches\transforms-3\a196baa700ff1f3b05762a06c14931f7\transformed\lifecycle-livedata-core-2.6.2\res
+com.mentorbridge.app-customview-poolingcontainer-1.0.0-18 C:\Users\Invader\.gradle\caches\transforms-3\a2daf81b4fcdb9411407370aab802473\transformed\customview-poolingcontainer-1.0.0\res
+com.mentorbridge.app-savedstate-1.2.1-19 C:\Users\Invader\.gradle\caches\transforms-3\a562fd5ab5c81cddcd101a43f3b48c00\transformed\savedstate-1.2.1\res
+com.mentorbridge.app-lifecycle-livedata-core-ktx-2.6.2-20 C:\Users\Invader\.gradle\caches\transforms-3\ab24520039263f661fe700cb02e65e89\transformed\lifecycle-livedata-core-ktx-2.6.2\res
+com.mentorbridge.app-annotation-experimental-1.3.0-21 C:\Users\Invader\.gradle\caches\transforms-3\ab5897bac2b522502e373a21237ed7a0\transformed\annotation-experimental-1.3.0\res
+com.mentorbridge.app-emoji2-views-helper-1.2.0-22 C:\Users\Invader\.gradle\caches\transforms-3\aeb0f0d790cc2bb2c39fde0c88c87687\transformed\emoji2-views-helper-1.2.0\res
+com.mentorbridge.app-navigation-common-2.7.6-23 C:\Users\Invader\.gradle\caches\transforms-3\b2727db44eb1bae0ee7336e47e31e577\transformed\navigation-common-2.7.6\res
+com.mentorbridge.app-drawerlayout-1.1.1-24 C:\Users\Invader\.gradle\caches\transforms-3\b2c0baf04ac6533147f9384ef4e31969\transformed\drawerlayout-1.1.1\res
+com.mentorbridge.app-lifecycle-process-2.6.2-25 C:\Users\Invader\.gradle\caches\transforms-3\b4fab737995e131024828915f3cdfaa2\transformed\lifecycle-process-2.6.2\res
+com.mentorbridge.app-swiperefreshlayout-1.1.0-26 C:\Users\Invader\.gradle\caches\transforms-3\b795e3921e968fb1a833b425fd1259e9\transformed\swiperefreshlayout-1.1.0\res
+com.mentorbridge.app-transition-1.4.1-27 C:\Users\Invader\.gradle\caches\transforms-3\be6c02f4dc80936641727f0e2c745f46\transformed\transition-1.4.1\res
+com.mentorbridge.app-navigation-fragment-2.7.6-28 C:\Users\Invader\.gradle\caches\transforms-3\c48fba08e334e75801f86252d12183e6\transformed\navigation-fragment-2.7.6\res
+com.mentorbridge.app-cardview-1.0.0-29 C:\Users\Invader\.gradle\caches\transforms-3\c8bdece1432d6bd447ee6e396aae1f67\transformed\cardview-1.0.0\res
+com.mentorbridge.app-core-1.12.0-30 C:\Users\Invader\.gradle\caches\transforms-3\cbb9cfc98c536bf8b78e728ce724f1fe\transformed\core-1.12.0\res
+com.mentorbridge.app-lifecycle-runtime-ktx-2.6.2-31 C:\Users\Invader\.gradle\caches\transforms-3\cfc3a25e993248d8dbbbf8ac6b9a8ff5\transformed\lifecycle-runtime-ktx-2.6.2\res
+com.mentorbridge.app-core-runtime-2.2.0-32 C:\Users\Invader\.gradle\caches\transforms-3\d4c59bd9210ecc79c0b9d6f2393b2a4a\transformed\core-runtime-2.2.0\res
+com.mentorbridge.app-savedstate-ktx-1.2.1-33 C:\Users\Invader\.gradle\caches\transforms-3\dc0b633bb9c86c4d862bb6470002309b\transformed\savedstate-ktx-1.2.1\res
+com.mentorbridge.app-material-1.11.0-34 C:\Users\Invader\.gradle\caches\transforms-3\e004d834515d4821022ab53ea1e4b61a\transformed\material-1.11.0\res
+com.mentorbridge.app-lifecycle-livedata-2.6.2-35 C:\Users\Invader\.gradle\caches\transforms-3\e39c499e110973cc07c9ef7178f677e0\transformed\lifecycle-livedata-2.6.2\res
+com.mentorbridge.app-activity-1.8.0-36 C:\Users\Invader\.gradle\caches\transforms-3\ea78a173ccca4d16206ea59ffb3c89ee\transformed\activity-1.8.0\res
+com.mentorbridge.app-lifecycle-viewmodel-ktx-2.6.2-37 C:\Users\Invader\.gradle\caches\transforms-3\ebb7406571d8319aea9af29e2f06352d\transformed\lifecycle-viewmodel-ktx-2.6.2\res
+com.mentorbridge.app-lifecycle-viewmodel-savedstate-2.6.2-38 C:\Users\Invader\.gradle\caches\transforms-3\edcb595ea4f8a6302d86478acdb6f54b\transformed\lifecycle-viewmodel-savedstate-2.6.2\res
+com.mentorbridge.app-core-ktx-1.12.0-39 C:\Users\Invader\.gradle\caches\transforms-3\fd272e98df53565b53292a62e144dd0e\transformed\core-ktx-1.12.0\res
+com.mentorbridge.app-profileinstaller-1.3.0-40 C:\Users\Invader\.gradle\caches\transforms-3\ffb0329a3fb69eb4cdd5ec3d8e97f80d\transformed\profileinstaller-1.3.0\res
+com.mentorbridge.app-pngs-41 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\build\generated\res\pngs\debug
+com.mentorbridge.app-resValues-42 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\build\generated\res\resValues\debug
+com.mentorbridge.app-packageDebugResources-43 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.mentorbridge.app-packageDebugResources-44 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.mentorbridge.app-merged_res-45 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\build\intermediates\merged_res\debug
+com.mentorbridge.app-debug-46 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\debug\res
+com.mentorbridge.app-main-47 C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\res

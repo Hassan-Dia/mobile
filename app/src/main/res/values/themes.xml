@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.MentorBridge" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+    <style name="Theme.MentorBridge.Splash" parent="Theme.MentorBridge">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Legacy theme names for backward compatibility -->
+    <style name="AppTheme" parent="Theme.MentorBridge" />
+    <style name="SplashTheme" parent="Theme.MentorBridge.Splash" />
+</resources>
