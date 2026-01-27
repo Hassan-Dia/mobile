@@ -154,31 +154,25 @@ public class MainActivity extends AppCompatActivity {
 
         if (sessionManager.isMentor()) {
             if (itemId == R.id.nav_mentor_dashboard) {
-                fragment = new MentorDashboardFragment();
-                toolbarTitle.setText("Dashboard");
+                fragment = new ProfileFragment();
+                toolbarTitle.setText("Profile");
             } else if (itemId == R.id.nav_mentor_sessions) {
                 fragment = new MySessionsFragment();
                 toolbarTitle.setText("My Sessions");
             } else if (itemId == R.id.nav_mentor_availability) {
                 fragment = new AvailabilityFragment();
                 toolbarTitle.setText("Availability");
-            } else if (itemId == R.id.nav_mentor_profile) {
-                fragment = new ProfileFragment();
-                toolbarTitle.setText("Profile");
             }
         } else {
-            if (itemId == R.id.nav_mentee_dashboard) {
-                fragment = new MenteeDashboardFragment();
-                toolbarTitle.setText("Dashboard");
+            if (itemId == R.id.nav_mentee_profile) {
+                fragment = new ProfileFragment();
+                toolbarTitle.setText("Profile");
             } else if (itemId == R.id.nav_mentee_mentors) {
                 fragment = new MentorListFragment();
                 toolbarTitle.setText("Find Mentors");
             } else if (itemId == R.id.nav_mentee_sessions) {
                 fragment = new MySessionsFragment();
                 toolbarTitle.setText("My Sessions");
-            } else if (itemId == R.id.nav_mentee_profile) {
-                fragment = new ProfileFragment();
-                toolbarTitle.setText("Profile");
             }
         }
 
@@ -199,16 +193,16 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragmentContainer, new AdminDashboardFragment())
                     .commit();
         } else if (sessionManager.isMentor()) {
-            toolbarTitle.setText("Dashboard");
+            toolbarTitle.setText("Profile");
             bottomNavigation.setSelectedItemId(R.id.nav_mentor_dashboard);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new MentorDashboardFragment())
+                    .replace(R.id.fragmentContainer, new ProfileFragment())
                     .commit();
         } else {
-            toolbarTitle.setText("Dashboard");
-            bottomNavigation.setSelectedItemId(R.id.nav_mentee_dashboard);
+            toolbarTitle.setText("Profile");
+            bottomNavigation.setSelectedItemId(R.id.nav_mentee_profile);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new MenteeDashboardFragment())
+                    .replace(R.id.fragmentContainer, new ProfileFragment())
                     .commit();
         }
     }
@@ -247,5 +241,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void showLogoutOption() {
         handleLogout();
+    }
+    
+    public void refreshAdminDashboard() {
+        // Refresh the dashboard fragment if it's currently visible
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+        if (currentFragment instanceof AdminDashboardFragment) {
+            ((AdminDashboardFragment) currentFragment).refreshStats();
+        }
     }
 }

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:2:1-55:12
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:2:1-55:12
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:2:1-55:12
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:2:1-55:12
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:2:1-69:12
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:2:1-69:12
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:2:1-69:12
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:2:1-69:12
 MERGED from [androidx.databinding:viewbinding:8.1.0] C:\Users\Invader\.gradle\caches\transforms-3\b100e96862aa73b4a52f697b9a1b20ba\transformed\viewbinding-8.1.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-common:2.7.6] C:\Users\Invader\.gradle\caches\transforms-3\b2727db44eb1bae0ee7336e47e31e577\transformed\navigation-common-2.7.6\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.6] C:\Users\Invader\.gradle\caches\transforms-3\8c4515e96450675135643c7de1cf46d5\transformed\navigation-runtime-2.7.6\AndroidManifest.xml:17:1-22:12
@@ -49,6 +49,7 @@ MERGED from [androidx.transition:transition:1.4.1] C:\Users\Invader\.gradle\cach
 MERGED from [androidx.window:window:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\0900d8d79632a05eaa01f673d7e179d5\transformed\window-1.0.0\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.core:core:1.12.0] C:\Users\Invader\.gradle\caches\transforms-3\cbb9cfc98c536bf8b78e728ce724f1fe\transformed\core-1.12.0\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\c8bdece1432d6bd447ee6e396aae1f67\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.volley:volley:1.2.1] C:\Users\Invader\.gradle\caches\transforms-3\5933d023026aa7cd4af8a43dbee629ce\transformed\volley-1.2.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\738310a87d9925967294fafc069fcc67\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\a3361067d52275e58bda1185bd0e0722\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Invader\.gradle\caches\transforms-3\b21884de3c1fed91191658c9c59e73bb\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
@@ -61,18 +62,26 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\Invader\.gradle\caches\transfo
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Invader\.gradle\caches\transforms-3\d4c59bd9210ecc79c0b9d6f2393b2a4a\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Invader\.gradle\caches\transforms-3\ab5897bac2b522502e373a21237ed7a0\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
 	package
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:3:5-51
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:6:5-67
+	android:name
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:7:22-76
 application
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:7:5-53:19
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:7:5-53:19
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:9:5-67:19
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:9:5-67:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\Invader\.gradle\caches\transforms-3\e004d834515d4821022ab53ea1e4b61a\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\Invader\.gradle\caches\transforms-3\e004d834515d4821022ab53ea1e4b61a\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Invader\.gradle\caches\transforms-3\395d71d697a2819f71d941e83c2d5fe8\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -92,81 +101,97 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\Invader\
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Invader\.gradle\caches\transforms-3\4573a54a4cb907959ef8ca8349b0a217\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Invader\.gradle\caches\transforms-3\4573a54a4cb907959ef8ca8349b0a217\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 	android:extractNativeLibs
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\Invader\.gradle\caches\transforms-3\cbb9cfc98c536bf8b78e728ce724f1fe\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:12:9-41
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:14:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:10:9-54
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:12:9-54
 	android:roundIcon
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:13:9-56
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:15:9-56
 	tools:targetApi
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:16:9-29
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:19:9-29
 	android:icon
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:11:9-45
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:13:9-45
 	android:allowBackup
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:8:9-35
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:10:9-35
 	android:theme
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:15:9-50
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:17:9-50
+	android:networkSecurityConfig
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:18:9-69
 	android:dataExtractionRules
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:9:9-65
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:11:9-65
 activity#com.mentorbridge.app.activities.SplashActivity
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:19:9-27:20
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:22:9-30:20
 	android:exported
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:21:13-36
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:24:13-36
 	android:theme
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:22:13-61
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:25:13-61
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:20:13-54
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:23:13-54
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:23:13-26:29
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:26:13-29:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:24:17-69
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:24:25-66
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:27:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:25:17-77
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:25:27-74
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:28:27-74
 activity#com.mentorbridge.app.activities.AuthActivity
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:30:9-33:58
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:33:9-36:58
 	android:windowSoftInputMode
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:33:13-55
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:36:13-55
 	android:exported
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:32:13-37
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:35:13-37
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:31:13-52
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:34:13-52
 activity#com.mentorbridge.app.activities.MainActivity
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:36:9-39:58
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:39:9-42:58
 	android:windowSoftInputMode
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:39:13-55
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:42:13-55
 	android:exported
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:38:13-37
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:41:13-37
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:37:13-52
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:40:13-52
 activity#com.mentorbridge.app.activities.MentorDetailActivity
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:42:9-45:69
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:45:9-48:69
 	android:parentActivityName
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:45:13-66
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:48:13-66
 	android:exported
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:44:13-37
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:47:13-37
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:43:13-60
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:46:13-60
 activity#com.mentorbridge.app.activities.BookSessionActivity
-ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:48:9-51:77
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:51:9-54:77
 	android:parentActivityName
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:51:13-74
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:54:13-74
 	android:exported
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:50:13-37
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:53:13-37
 	android:name
-		ADDED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml:49:13-59
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:52:13-59
+activity#com.mentorbridge.app.activities.MentorProfileSetupActivity
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:57:9-60:58
+	android:windowSoftInputMode
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:60:13-55
+	android:exported
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:59:13-37
+	android:name
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:58:13-66
+activity#com.mentorbridge.app.activities.MentorWaitingApprovalActivity
+ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:63:9-65:40
+	android:exported
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:65:13-37
+	android:name
+		ADDED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml:64:13-69
 uses-sdk
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 MERGED from [androidx.databinding:viewbinding:8.1.0] C:\Users\Invader\.gradle\caches\transforms-3\b100e96862aa73b4a52f697b9a1b20ba\transformed\viewbinding-8.1.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.databinding:viewbinding:8.1.0] C:\Users\Invader\.gradle\caches\transforms-3\b100e96862aa73b4a52f697b9a1b20ba\transformed\viewbinding-8.1.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.navigation:navigation-common:2.7.6] C:\Users\Invader\.gradle\caches\transforms-3\b2727db44eb1bae0ee7336e47e31e577\transformed\navigation-common-2.7.6\AndroidManifest.xml:20:5-44
@@ -257,6 +282,8 @@ MERGED from [androidx.core:core:1.12.0] C:\Users\Invader\.gradle\caches\transfor
 MERGED from [androidx.core:core:1.12.0] C:\Users\Invader\.gradle\caches\transforms-3\cbb9cfc98c536bf8b78e728ce724f1fe\transformed\core-1.12.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\c8bdece1432d6bd447ee6e396aae1f67\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\c8bdece1432d6bd447ee6e396aae1f67\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.volley:volley:1.2.1] C:\Users\Invader\.gradle\caches\transforms-3\5933d023026aa7cd4af8a43dbee629ce\transformed\volley-1.2.1\AndroidManifest.xml:5:5-43
+MERGED from [com.android.volley:volley:1.2.1] C:\Users\Invader\.gradle\caches\transforms-3\5933d023026aa7cd4af8a43dbee629ce\transformed\volley-1.2.1\AndroidManifest.xml:5:5-43
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\738310a87d9925967294fafc069fcc67\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\738310a87d9925967294fafc069fcc67\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Invader\.gradle\caches\transforms-3\a3361067d52275e58bda1185bd0e0722\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
@@ -280,9 +307,9 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Invader\.gradle\cac
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Invader\.gradle\caches\transforms-3\ab5897bac2b522502e373a21237ed7a0\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Invader\.gradle\caches\transforms-3\ab5897bac2b522502e373a21237ed7a0\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 	android:targetSdkVersion
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Invader\Desktop\Media\code\Mobile\Mentor bridge\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Invader\Desktop\Media\Code\Mobile\mobile\app\src\main\AndroidManifest.xml
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Invader\.gradle\caches\transforms-3\1b9996c08011e841824064a663be72df\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Invader\.gradle\caches\transforms-3\b4fab737995e131024828915f3cdfaa2\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:24:9-32:20

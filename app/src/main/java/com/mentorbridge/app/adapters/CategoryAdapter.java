@@ -19,10 +19,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private Context context;
     private List<Category> categories;
+    private OnCategoryClickListener listener;
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
+    }
 
     public CategoryAdapter(Context context, List<Category> categories) {
         this.context = context;
         this.categories = categories;
+    }
+
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,6 +49,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.txtName.setText(category.getName());
         holder.txtDescription.setText(category.getDescription());
         holder.txtCount.setText(category.getMentorCount() + " mentors");
+        
+        holder.cardView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCategoryClick(category);
+            }
+        });
     }
 
     @Override

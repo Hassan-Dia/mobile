@@ -211,6 +211,22 @@ public class MentorDetailActivity extends AppCompatActivity {
         intent.putExtra(BookSessionActivity.EXTRA_MENTOR_ID, mentor.getId());
         intent.putExtra(BookSessionActivity.EXTRA_MENTOR_NAME, mentor.getFullName());
         intent.putExtra(BookSessionActivity.EXTRA_HOURLY_RATE, mentor.getHourlyRate());
+        
+        // Pass availability as JSON string
+        try {
+            JSONArray availabilityArray = new JSONArray();
+            for (Availability avail : mentor.getAvailability()) {
+                JSONObject obj = new JSONObject();
+                obj.put("day_of_week", avail.getDayOfWeek());
+                obj.put("time_slot", avail.getTimeSlot());
+                obj.put("is_available", avail.isAvailable());
+                availabilityArray.put(obj);
+            }
+            intent.putExtra(BookSessionActivity.EXTRA_AVAILABILITY, availabilityArray.toString());
+        } catch (Exception e) {
+            // Continue without availability
+        }
+        
         startActivity(intent);
     }
 

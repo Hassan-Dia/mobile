@@ -3060,6 +3060,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_pending
 drawable ic_search_black_24
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3244,6 +3245,7 @@ id btnAddSlot
 id btnApprove
 id btnBook
 id btnBookSession
+id btnCheckStatus
 id btnComplete
 id btnContactPhone
 id btnFeedback
@@ -3253,6 +3255,7 @@ id btnPay
 id btnRegister
 id btnReject
 id btnSelectTime
+id btnSubmitProfile
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3339,6 +3342,11 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id etBio
+id etCategories
+id etExperience
+id etHourlyRate
+id etSkills
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3433,10 +3441,12 @@ id material_timepicker_ok_button
 id material_timepicker_view
 id material_value_index
 id matrix
+id menteeStatsCard
 id mentorBio
 id mentorExpertise
 id mentorInfoCard
 id mentorRate
+id mentorStatsCard
 id message
 id middle
 id mini
@@ -3478,13 +3488,11 @@ id nav_admin_dashboard
 id nav_admin_logout
 id nav_controller_view_tag
 id nav_host_fragment_container
-id nav_mentee_dashboard
 id nav_mentee_mentors
 id nav_mentee_profile
 id nav_mentee_sessions
 id nav_mentor_availability
 id nav_mentor_dashboard
-id nav_mentor_profile
 id nav_mentor_sessions
 id navigationView
 id navigation_bar_item_active_indicator_view
@@ -3598,7 +3606,6 @@ id selection_type
 id sessionCost
 id sessionDate
 id sessionDuration
-id sessionNotes
 id sessionTime
 id sharedValueSet
 id sharedValueUnset
@@ -3699,6 +3706,8 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvStatusMessage
+id tvStatusTitle
 id txtAmount
 id txtBio
 id txtCategories
@@ -3712,7 +3721,10 @@ id txtExperience
 id txtHourlyRate
 id txtIcon
 id txtMenteeName
+id txtMentorEarnings
 id txtMentorName
+id txtMentorRating
+id txtMentorSessions
 id txtName
 id txtPrice
 id txtRate
@@ -3726,6 +3738,8 @@ id txtSwitchToRegister
 id txtTime
 id txtTimeSlot
 id txtTotalPrice
+id txtTotalSessions
+id txtTotalSpent
 id txtWelcome
 id unchecked
 id uniform
@@ -3870,6 +3884,8 @@ layout activity_auth
 layout activity_book_session
 layout activity_main
 layout activity_mentor_detail
+layout activity_mentor_profile_setup
+layout activity_mentor_waiting_approval
 layout activity_splash
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -4009,6 +4025,7 @@ string app_logo
 string app_name
 string app_tagline
 string appbar_scrolling_view_behavior
+string approval_pending_message
 string approvals
 string approve
 string approved
@@ -4034,12 +4051,15 @@ string call_notification_incoming_text
 string call_notification_ongoing_text
 string call_notification_screening_text
 string cancelled
+string categories
 string category_icon
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
+string check_status
 string clear_text_end_icon_content_description
 string complete
+string complete_profile_message
 string completed
 string confirm_booking
 string confirmed
@@ -4053,6 +4073,7 @@ string duration_hours
 string email
 string error_a11y_label
 string error_icon_content_description
+string experience
 string expertise
 string explore_mentors
 string exposed_dropdown_menu_content_description
@@ -4214,10 +4235,13 @@ string searchview_navigation_content_description
 string select_date
 string session_details
 string set_your_schedule
+string setup_mentor_profile
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
+string skills
 string status
 string status_bar_notification_info_overflow
+string submit_profile
 string time
 string total_cost
 string total_earnings
@@ -4226,6 +4250,8 @@ string total_mentors
 string total_revenue
 string total_sessions
 string total_users
+string waiting_approval
+string waiting_for_approval
 string welcome_mentee
 string your_stats
 style AlertDialog_AppCompat
@@ -5520,3 +5546,4 @@ styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration
 styleable include constraintSet
 xml backup_rules
 xml data_extraction_rules
+xml network_security_config

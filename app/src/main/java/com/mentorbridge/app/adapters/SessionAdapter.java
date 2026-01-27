@@ -70,7 +70,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             holder.btnComplete.setOnClickListener(v -> listener.onCompleteClick(session));
         }
 
-        if (!isMentor && session.isCompleted()) {
+        if (!isMentor && session.isCompleted() && !session.hasFeedback()) {
             holder.btnFeedback.setVisibility(View.VISIBLE);
             holder.btnFeedback.setOnClickListener(v -> listener.onFeedbackClick(session));
         }

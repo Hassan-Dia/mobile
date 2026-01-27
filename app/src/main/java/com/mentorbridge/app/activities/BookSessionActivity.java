@@ -17,6 +17,7 @@ import com.mentorbridge.app.utils.ApiClient;
 import com.mentorbridge.app.utils.SessionManager;
 import com.mentorbridge.app.utils.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,10 +29,12 @@ public class BookSessionActivity extends AppCompatActivity {
     public static final String EXTRA_MENTOR_ID = "mentor_id";
     public static final String EXTRA_MENTOR_NAME = "mentor_name";
     public static final String EXTRA_HOURLY_RATE = "hourly_rate";
+    public static final String EXTRA_AVAILABILITY = "availability";
 
     private int mentorId;
     private String mentorName;
     private double hourlyRate;
+    private JSONArray availabilityData;
 
     private TextView txtMentorName, txtPrice, txtTotalPrice;
     private Spinner spinnerDay, spinnerTime;
@@ -40,6 +43,9 @@ public class BookSessionActivity extends AppCompatActivity {
 
     private ApiClient apiClient;
     private SessionManager sessionManager;
+    
+    private List<String> availableDays;
+    private JSONObject availabilityByDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +55,21 @@ public class BookSessionActivity extends AppCompatActivity {
         mentorId = getIntent().getIntExtra(EXTRA_MENTOR_ID, 0);
         mentorName = getIntent().getStringExtra(EXTRA_MENTOR_NAME);
         hourlyRate = getIntent().getDoubleExtra(EXTRA_HOURLY_RATE, 0);
+        String availabilityJson = getIntent().getStringExtra(EXTRA_AVAILABILITY);
 
         if (mentorId == 0) {
             Toast.makeText(this, "Invalid mentor", Toast.LENGTH_SHORT).show();
             finish();
             return;
+        }
+
+        try {
+            availabilityData = new JSONArray(availabilityJson != null ? availabilityJson : "[]");
+            parseAvailability();
+        } catch (Exception e) {
+            availabilityData = new JSONArray();
+            availableDays = new ArrayList<>();
+            availabilityByDay = new JSONObject();
         }
 
         apiClient = ApiClient.getInstance(this);
@@ -63,6 +79,28 @@ public class BookSessionActivity extends AppCompatActivity {
         setupToolbar();
         setupSpinners();
         calculatePrice();
+    }
+    
+    private void parseAvailability() throws JSONException {
+        availableDays = new ArrayList<>();
+        availabilityByDay = new JSONObject();
+        
+        for (int i = 0; i < availabilityData.length(); i++) {
+            JSONObject slot = availabilityData.getJSONObject(i);
+            if (slot.getInt("is_available") == 1) {
+                String day = slot.getString("day_of_week");
+                String timeSlot = slot.getString("time_slot");
+                
+                if (!availableDays.contains(day)) {
+                    availableDays.add(day);
+                }
+                
+                if (!availabilityByDay.has(day)) {
+                    availabilityByDay.put(day, new JSONArray());
+                }
+                availabilityByDay.getJSONArray(day).put(timeSlot);
+            }
+        }
     }
 
     private void initViews() {
@@ -89,32 +127,59 @@ public class BookSessionActivity extends AppCompatActivity {
     }
 
     private void setupSpinners() {
-        // Days of week
-        List<String> days = new ArrayList<>();
-        days.add("Monday");
-        days.add("Tuesday");
-        days.add("Wednesday");
-        days.add("Thursday");
-        days.add("Friday");
-        days.add("Saturday");
-        days.add("Sunday");
+        // Only show days that have availability
+        if (availableDays.isEmpty()) {
+            // Fallback to all days if no availability data
+            availableDays.add("Monday");
+            availableDays.add("Tuesday");
+            availableDays.add("Wednesday");
+            availableDays.add("Thursday");
+            availableDays.add("Friday");
+        }
 
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, 
-                android.R.layout.simple_spinner_item, days);
+                android.R.layout.simple_spinner_item, availableDays);
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDay.setAdapter(dayAdapter);
 
-        // Time slots
+        // Update time slots when day changes
+        spinnerDay.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                updateTimeSlots();
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
+        });
+
+        // Initial time slots setup
+        updateTimeSlots();
+    }
+    
+    private void updateTimeSlots() {
+        String selectedDay = spinnerDay.getSelectedItem().toString();
         List<String> times = new ArrayList<>();
-        times.add("09:00");
-        times.add("10:00");
-        times.add("11:00");
-        times.add("12:00");
-        times.add("13:00");
-        times.add("14:00");
-        times.add("15:00");
-        times.add("16:00");
-        times.add("17:00");
+        
+        try {
+            if (availabilityByDay.has(selectedDay)) {
+                JSONArray dayTimes = availabilityByDay.getJSONArray(selectedDay);
+                for (int i = 0; i < dayTimes.length(); i++) {
+                    times.add(dayTimes.getString(i));
+                }
+            }
+        } catch (Exception e) {
+            // Fallback times if parsing fails
+        }
+        
+        // Fallback to default times if none available
+        if (times.isEmpty()) {
+            times.add("09:00-10:00");
+            times.add("10:00-11:00");
+            times.add("14:00-15:00");
+            times.add("15:00-16:00");
+        }
 
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, 
                 android.R.layout.simple_spinner_item, times);
@@ -123,8 +188,9 @@ public class BookSessionActivity extends AppCompatActivity {
     }
 
     private void calculatePrice() {
+        // Fixed 1 hour sessions
         double menteePrice = hourlyRate * 1.20;
-        txtPrice.setText("Mentor Rate: " + Utils.formatPrice(hourlyRate));
+        txtPrice.setText("Mentor Rate: " + Utils.formatPrice(hourlyRate) + " per hour");
         txtTotalPrice.setText("Total (with 20% platform fee): " + Utils.formatPrice(menteePrice));
     }
 

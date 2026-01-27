@@ -166,12 +166,46 @@ public class AuthActivity extends AppCompatActivity {
                                 Profile profile = new Profile();
                                 profile.setId(profileData.getInt("id"));
                                 profile.setFullName(profileData.getString("full_name"));
+                                
+                                // Extract profile completion and approval status
+                                if (profileData.has("is_profile_complete")) {
+                                    profile.setProfileComplete(profileData.getBoolean("is_profile_complete"));
+                                }
+                                if (profileData.has("approval_status")) {
+                                    profile.setApprovalStatus(profileData.getString("approval_status"));
+                                }
+                                
                                 user.setProfile(profile);
                             }
                             
                             sessionManager.createSession(user);
                             
-                            Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                            // Check if user is a mentor and route accordingly
+                            Intent intent;
+                            if ("mentor".equals(user.getRole())) {
+                                // Check if profile is complete
+                                if (!sessionManager.isProfileComplete()) {
+                                    // Redirect to profile setup
+                                    intent = new Intent(AuthActivity.this, MentorProfileSetupActivity.class);
+                                } else {
+                                    // Check approval status
+                                    String approvalStatus = sessionManager.getApprovalStatus();
+                                    if ("approved".equals(approvalStatus)) {
+                                        // Approved, go to main app
+                                        intent = new Intent(AuthActivity.this, MainActivity.class);
+                                    } else if ("rejected".equals(approvalStatus)) {
+                                        // Rejected, go back to profile setup
+                                        sessionManager.setProfileComplete(false);
+                                        intent = new Intent(AuthActivity.this, MentorProfileSetupActivity.class);
+                                    } else {
+                                        // Pending, show waiting page
+                                        intent = new Intent(AuthActivity.this, MentorWaitingApprovalActivity.class);
+                                    }
+                                }
+                            } else {
+                                // Mentee or admin, go straight to main app
+                                intent = new Intent(AuthActivity.this, MainActivity.class);
+                            }
                             startActivity(intent);
                             finish();
                         } else {
@@ -254,6 +288,15 @@ public class AuthActivity extends AppCompatActivity {
                                 Profile profile = new Profile();
                                 profile.setId(profileData.getInt("id"));
                                 profile.setFullName(profileData.getString("full_name"));
+                                
+                                // Extract profile completion and approval status for mentors
+                                if (profileData.has("is_profile_complete")) {
+                                    profile.setProfileComplete(profileData.getBoolean("is_profile_complete"));
+                                }
+                                if (profileData.has("approval_status")) {
+                                    profile.setApprovalStatus(profileData.getString("approval_status"));
+                                }
+                                
                                 user.setProfile(profile);
                             }
                             
@@ -261,7 +304,15 @@ public class AuthActivity extends AppCompatActivity {
                             
                             Toast.makeText(AuthActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                             
-                            Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                            // Check if user is a mentor
+                            Intent intent;
+                            if ("mentor".equals(user.getRole())) {
+                                // Redirect to profile setup
+                                intent = new Intent(AuthActivity.this, MentorProfileSetupActivity.class);
+                            } else {
+                                // Mentee or other roles go to main activity
+                                intent = new Intent(AuthActivity.this, MainActivity.class);
+                            }
                             startActivity(intent);
                             finish();
                         } else {

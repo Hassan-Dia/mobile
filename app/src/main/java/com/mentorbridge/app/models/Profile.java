@@ -12,6 +12,8 @@ public class Profile {
     private String status;
     private double averageRating;
     private int totalReviews;
+    private boolean isProfileComplete;
+    private String approvalStatus; // "pending", "approved", "rejected"
 
     public Profile() {}
 
@@ -101,5 +103,21 @@ public class Profile {
 
     public void setTotalReviews(int totalReviews) {
         this.totalReviews = totalReviews;
+    }
+
+    public boolean isProfileComplete() {
+        return isProfileComplete;
+    }
+
+    public void setProfileComplete(boolean profileComplete) {
+        isProfileComplete = profileComplete;
+    }
+
+    public String getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 }

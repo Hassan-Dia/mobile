@@ -14,7 +14,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.mentorbridge.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -32,15 +31,6 @@ public final class ActivityBookSessionBinding implements ViewBinding {
 
   @NonNull
   public final ProgressBar progressBar;
-
-  @NonNull
-  public final TextInputEditText sessionDate;
-
-  @NonNull
-  public final TextInputEditText sessionDuration;
-
-  @NonNull
-  public final TextInputEditText sessionNotes;
 
   @NonNull
   public final Spinner spinnerDay;
@@ -62,18 +52,13 @@ public final class ActivityBookSessionBinding implements ViewBinding {
 
   private ActivityBookSessionBinding(@NonNull CoordinatorLayout rootView,
       @NonNull MaterialButton btnBook, @NonNull TextView mentorExpertise,
-      @NonNull ProgressBar progressBar, @NonNull TextInputEditText sessionDate,
-      @NonNull TextInputEditText sessionDuration, @NonNull TextInputEditText sessionNotes,
-      @NonNull Spinner spinnerDay, @NonNull Spinner spinnerTime, @NonNull Toolbar toolbar,
-      @NonNull TextView txtMentorName, @NonNull TextView txtPrice,
+      @NonNull ProgressBar progressBar, @NonNull Spinner spinnerDay, @NonNull Spinner spinnerTime,
+      @NonNull Toolbar toolbar, @NonNull TextView txtMentorName, @NonNull TextView txtPrice,
       @NonNull TextView txtTotalPrice) {
     this.rootView = rootView;
     this.btnBook = btnBook;
     this.mentorExpertise = mentorExpertise;
     this.progressBar = progressBar;
-    this.sessionDate = sessionDate;
-    this.sessionDuration = sessionDuration;
-    this.sessionNotes = sessionNotes;
     this.spinnerDay = spinnerDay;
     this.spinnerTime = spinnerTime;
     this.toolbar = toolbar;
@@ -127,24 +112,6 @@ public final class ActivityBookSessionBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.sessionDate;
-      TextInputEditText sessionDate = ViewBindings.findChildViewById(rootView, id);
-      if (sessionDate == null) {
-        break missingId;
-      }
-
-      id = R.id.sessionDuration;
-      TextInputEditText sessionDuration = ViewBindings.findChildViewById(rootView, id);
-      if (sessionDuration == null) {
-        break missingId;
-      }
-
-      id = R.id.sessionNotes;
-      TextInputEditText sessionNotes = ViewBindings.findChildViewById(rootView, id);
-      if (sessionNotes == null) {
-        break missingId;
-      }
-
       id = R.id.spinnerDay;
       Spinner spinnerDay = ViewBindings.findChildViewById(rootView, id);
       if (spinnerDay == null) {
@@ -182,8 +149,7 @@ public final class ActivityBookSessionBinding implements ViewBinding {
       }
 
       return new ActivityBookSessionBinding((CoordinatorLayout) rootView, btnBook, mentorExpertise,
-          progressBar, sessionDate, sessionDuration, sessionNotes, spinnerDay, spinnerTime, toolbar,
-          txtMentorName, txtPrice, txtTotalPrice);
+          progressBar, spinnerDay, spinnerTime, toolbar, txtMentorName, txtPrice, txtTotalPrice);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

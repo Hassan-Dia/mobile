@@ -11,6 +11,7 @@ public class Session {
     private double amount;
     private String mentorName;
     private String menteeName;
+    private boolean hasFeedback;
 
     public Session() {}
 
@@ -92,6 +93,14 @@ public class Session {
 
     public void setMenteeName(String menteeName) {
         this.menteeName = menteeName;
+    }
+    
+    public boolean hasFeedback() {
+        return hasFeedback;
+    }
+    
+    public void setHasFeedback(boolean hasFeedback) {
+        this.hasFeedback = hasFeedback;
     }
 
     public boolean isPending() {

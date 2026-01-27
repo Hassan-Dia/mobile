@@ -19,6 +19,7 @@
     <string name="app_logo">App Logo</string>
     <string name="app_name">MentorBridge</string>
     <string name="app_tagline">Connect. Learn. Grow.</string>
+    <string name="approval_pending_message">Your profile is currently under review by an administrator. You will be notified once your profile is approved. This usually takes 1-2 business days.</string>
     <string name="approvals">Approvals</string>
     <string name="approve">Approve</string>
     <string name="approved">Approved</string>
@@ -31,8 +32,11 @@
     <string name="booked">Booked</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="cancelled">Cancelled</string>
+    <string name="categories">Categories (e.g., Programming, Design)</string>
     <string name="category_icon">Category Icon</string>
+    <string name="check_status">Check Status</string>
     <string name="complete">Complete</string>
+    <string name="complete_profile_message">Please complete your profile to start mentoring</string>
     <string name="completed">Completed</string>
     <string name="confirm_booking">Confirm Booking</string>
     <string name="confirmed">Confirmed</string>
@@ -43,6 +47,7 @@
     <string name="duration">Duration</string>
     <string name="duration_hours">Duration (hours)</string>
     <string name="email">Email</string>
+    <string name="experience">Years of Experience</string>
     <string name="expertise">Expertise (e.g., Java, Web Dev)</string>
     <string name="explore_mentors">Explore mentors and book your first session</string>
     <string name="feedback">Feedback</string>
@@ -87,7 +92,10 @@
     <string name="select_date">Select Date</string>
     <string name="session_details">Session Details</string>
     <string name="set_your_schedule">Set your available time slots</string>
+    <string name="setup_mentor_profile">Setup Mentor Profile</string>
+    <string name="skills">Skills (e.g., Java, Python, Web Development)</string>
     <string name="status">Status</string>
+    <string name="submit_profile">Submit Profile</string>
     <string name="time">Time</string>
     <string name="total_cost">Total Cost</string>
     <string name="total_earnings">Total Earnings</string>
@@ -96,6 +104,8 @@
     <string name="total_revenue">Total Revenue</string>
     <string name="total_sessions">Total Sessions</string>
     <string name="total_users">Total Users</string>
+    <string name="waiting_approval">Waiting for Approval</string>
+    <string name="waiting_for_approval">Waiting for Approval</string>
     <string name="welcome_mentee">Welcome to MentorBridge</string>
     <string name="your_stats">Your Stats</string>
     <style name="AppTheme" parent="Theme.MentorBridge"/>

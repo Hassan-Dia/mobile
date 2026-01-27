@@ -14,6 +14,8 @@ public class SessionManager {
     private static final String KEY_PROFILE_ID = "profile_id";
     private static final String KEY_FULL_NAME = "full_name";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
+    private static final String KEY_IS_PROFILE_COMPLETE = "is_profile_complete";
+    private static final String KEY_APPROVAL_STATUS = "approval_status";
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
@@ -34,6 +36,14 @@ public class SessionManager {
         if (user.getProfile() != null) {
             editor.putInt(KEY_PROFILE_ID, user.getProfile().getId());
             editor.putString(KEY_FULL_NAME, user.getProfile().getFullName());
+            editor.putBoolean(KEY_IS_PROFILE_COMPLETE, user.getProfile().isProfileComplete());
+            editor.putString(KEY_APPROVAL_STATUS, user.getProfile().getApprovalStatus());
+        } else {
+            // For new mentors, profile is not complete and pending approval
+            if ("mentor".equals(user.getRole())) {
+                editor.putBoolean(KEY_IS_PROFILE_COMPLETE, false);
+                editor.putString(KEY_APPROVAL_STATUS, "pending");
+            }
         }
         
         editor.apply();
@@ -86,5 +96,23 @@ public class SessionManager {
             editor.putString(KEY_FULL_NAME, profile.getFullName());
             editor.apply();
         }
+    }
+
+    public boolean isProfileComplete() {
+        return prefs.getBoolean(KEY_IS_PROFILE_COMPLETE, false);
+    }
+
+    public void setProfileComplete(boolean isComplete) {
+        editor.putBoolean(KEY_IS_PROFILE_COMPLETE, isComplete);
+        editor.apply();
+    }
+
+    public String getApprovalStatus() {
+        return prefs.getString(KEY_APPROVAL_STATUS, "pending");
+    }
+
+    public void setApprovalStatus(String status) {
+        editor.putString(KEY_APPROVAL_STATUS, status);
+        editor.apply();
     }
 }

@@ -26,6 +26,9 @@ public final class FragmentProfileBinding implements ViewBinding {
   public final MaterialButton btnLogout;
 
   @NonNull
+  public final MaterialCardView menteeStatsCard;
+
+  @NonNull
   public final TextView mentorBio;
 
   @NonNull
@@ -38,10 +41,22 @@ public final class FragmentProfileBinding implements ViewBinding {
   public final TextView mentorRate;
 
   @NonNull
+  public final MaterialCardView mentorStatsCard;
+
+  @NonNull
   public final ProgressBar progressBar;
 
   @NonNull
   public final TextView txtEmail;
+
+  @NonNull
+  public final TextView txtMentorEarnings;
+
+  @NonNull
+  public final TextView txtMentorRating;
+
+  @NonNull
+  public final TextView txtMentorSessions;
 
   @NonNull
   public final TextView txtName;
@@ -49,21 +64,37 @@ public final class FragmentProfileBinding implements ViewBinding {
   @NonNull
   public final TextView txtRole;
 
+  @NonNull
+  public final TextView txtTotalSessions;
+
+  @NonNull
+  public final TextView txtTotalSpent;
+
   private FragmentProfileBinding(@NonNull ScrollView rootView, @NonNull MaterialButton btnLogout,
-      @NonNull TextView mentorBio, @NonNull TextView mentorExpertise,
-      @NonNull MaterialCardView mentorInfoCard, @NonNull TextView mentorRate,
-      @NonNull ProgressBar progressBar, @NonNull TextView txtEmail, @NonNull TextView txtName,
-      @NonNull TextView txtRole) {
+      @NonNull MaterialCardView menteeStatsCard, @NonNull TextView mentorBio,
+      @NonNull TextView mentorExpertise, @NonNull MaterialCardView mentorInfoCard,
+      @NonNull TextView mentorRate, @NonNull MaterialCardView mentorStatsCard,
+      @NonNull ProgressBar progressBar, @NonNull TextView txtEmail,
+      @NonNull TextView txtMentorEarnings, @NonNull TextView txtMentorRating,
+      @NonNull TextView txtMentorSessions, @NonNull TextView txtName, @NonNull TextView txtRole,
+      @NonNull TextView txtTotalSessions, @NonNull TextView txtTotalSpent) {
     this.rootView = rootView;
     this.btnLogout = btnLogout;
+    this.menteeStatsCard = menteeStatsCard;
     this.mentorBio = mentorBio;
     this.mentorExpertise = mentorExpertise;
     this.mentorInfoCard = mentorInfoCard;
     this.mentorRate = mentorRate;
+    this.mentorStatsCard = mentorStatsCard;
     this.progressBar = progressBar;
     this.txtEmail = txtEmail;
+    this.txtMentorEarnings = txtMentorEarnings;
+    this.txtMentorRating = txtMentorRating;
+    this.txtMentorSessions = txtMentorSessions;
     this.txtName = txtName;
     this.txtRole = txtRole;
+    this.txtTotalSessions = txtTotalSessions;
+    this.txtTotalSpent = txtTotalSpent;
   }
 
   @Override
@@ -99,6 +130,12 @@ public final class FragmentProfileBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.menteeStatsCard;
+      MaterialCardView menteeStatsCard = ViewBindings.findChildViewById(rootView, id);
+      if (menteeStatsCard == null) {
+        break missingId;
+      }
+
       id = R.id.mentorBio;
       TextView mentorBio = ViewBindings.findChildViewById(rootView, id);
       if (mentorBio == null) {
@@ -123,6 +160,12 @@ public final class FragmentProfileBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.mentorStatsCard;
+      MaterialCardView mentorStatsCard = ViewBindings.findChildViewById(rootView, id);
+      if (mentorStatsCard == null) {
+        break missingId;
+      }
+
       id = R.id.progressBar;
       ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
       if (progressBar == null) {
@@ -132,6 +175,24 @@ public final class FragmentProfileBinding implements ViewBinding {
       id = R.id.txtEmail;
       TextView txtEmail = ViewBindings.findChildViewById(rootView, id);
       if (txtEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.txtMentorEarnings;
+      TextView txtMentorEarnings = ViewBindings.findChildViewById(rootView, id);
+      if (txtMentorEarnings == null) {
+        break missingId;
+      }
+
+      id = R.id.txtMentorRating;
+      TextView txtMentorRating = ViewBindings.findChildViewById(rootView, id);
+      if (txtMentorRating == null) {
+        break missingId;
+      }
+
+      id = R.id.txtMentorSessions;
+      TextView txtMentorSessions = ViewBindings.findChildViewById(rootView, id);
+      if (txtMentorSessions == null) {
         break missingId;
       }
 
@@ -147,8 +208,22 @@ public final class FragmentProfileBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentProfileBinding((ScrollView) rootView, btnLogout, mentorBio,
-          mentorExpertise, mentorInfoCard, mentorRate, progressBar, txtEmail, txtName, txtRole);
+      id = R.id.txtTotalSessions;
+      TextView txtTotalSessions = ViewBindings.findChildViewById(rootView, id);
+      if (txtTotalSessions == null) {
+        break missingId;
+      }
+
+      id = R.id.txtTotalSpent;
+      TextView txtTotalSpent = ViewBindings.findChildViewById(rootView, id);
+      if (txtTotalSpent == null) {
+        break missingId;
+      }
+
+      return new FragmentProfileBinding((ScrollView) rootView, btnLogout, menteeStatsCard,
+          mentorBio, mentorExpertise, mentorInfoCard, mentorRate, mentorStatsCard, progressBar,
+          txtEmail, txtMentorEarnings, txtMentorRating, txtMentorSessions, txtName, txtRole,
+          txtTotalSessions, txtTotalSpent);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

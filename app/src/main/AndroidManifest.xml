@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ✅ OFFLINE APP - No internet permissions needed! -->
+    <!-- Internet permissions for online database -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +15,7 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentorBridge"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
 
         <!-- Splash Activity (Launcher) -->
@@ -49,6 +52,17 @@
             android:name=".activities.BookSessionActivity"
             android:exported="false"
             android:parentActivityName=".activities.MentorDetailActivity" />
+
+        <!-- Mentor Profile Setup Activity -->
+        <activity
+            android:name=".activities.MentorProfileSetupActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Mentor Waiting Approval Activity -->
+        <activity
+            android:name=".activities.MentorWaitingApprovalActivity"
+            android:exported="false" />
 
     </application>
 

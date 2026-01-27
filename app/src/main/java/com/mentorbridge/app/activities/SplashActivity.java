@@ -24,7 +24,31 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent;
             if (sessionManager.isLoggedIn()) {
-                intent = new Intent(SplashActivity.this, MainActivity.class);
+                // Check if user is a mentor
+                if (sessionManager.isMentor()) {
+                    // Check if profile is complete
+                    if (!sessionManager.isProfileComplete()) {
+                        // Redirect to profile setup
+                        intent = new Intent(SplashActivity.this, MentorProfileSetupActivity.class);
+                    } else {
+                        // Check approval status
+                        String approvalStatus = sessionManager.getApprovalStatus();
+                        if ("approved".equals(approvalStatus)) {
+                            // Approved, go to main app
+                            intent = new Intent(SplashActivity.this, MainActivity.class);
+                        } else if ("rejected".equals(approvalStatus)) {
+                            // Rejected, go back to profile setup
+                            sessionManager.setProfileComplete(false);
+                            intent = new Intent(SplashActivity.this, MentorProfileSetupActivity.class);
+                        } else {
+                            // Pending or unknown, show waiting page
+                            intent = new Intent(SplashActivity.this, MentorWaitingApprovalActivity.class);
+                        }
+                    }
+                } else {
+                    // Mentee or admin, go straight to main app
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                }
             } else {
                 intent = new Intent(SplashActivity.this, AuthActivity.class);
             }

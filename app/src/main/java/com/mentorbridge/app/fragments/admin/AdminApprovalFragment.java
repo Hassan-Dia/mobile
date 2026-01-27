@@ -64,32 +64,36 @@ public class AdminApprovalFragment extends Fragment implements PendingMentorAdap
     private void loadPendingMentors() {
         progressBar.setVisibility(View.VISIBLE);
         
-        // Get all mentors (in real app, filter by pending status)
-        apiClient.getMentors("", new ApiClient.ApiResponseListener() {
+        apiClient.getPendingMentors(new ApiClient.ApiResponseListener() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
+                    android.util.Log.d("AdminApproval", "Response: " + response.toString());
                     if (response.getBoolean("success")) {
                         JSONArray data = response.getJSONArray("data");
+                        android.util.Log.d("AdminApproval", "Pending mentors count: " + data.length());
                         pendingMentors.clear();
                         
-                        // In offline mode, show all mentors as "pending"
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject obj = data.getJSONObject(i);
+                            android.util.Log.d("AdminApproval", "Mentor " + i + ": " + obj.toString());
                             Mentor mentor = new Mentor();
                             mentor.setId(obj.getInt("id"));
                             mentor.setFullName(obj.getString("full_name"));
-                            mentor.setBio(obj.getString("bio"));
-                            mentor.setSkills(obj.getString("skills"));
-                            mentor.setHourlyRate(obj.getDouble("hourly_rate"));
-                            mentor.setCategories(obj.optString("categories", ""));
+                            mentor.setEmail(obj.optString("email", ""));
+                            mentor.setSkills(obj.optString("category", "Development"));
+                            mentor.setBio(obj.optString("category", "Development") + " - " + obj.optInt("experience_years", 0) + " years experience");
+                            mentor.setHourlyRate(50.0);
                             pendingMentors.add(mentor);
+                            android.util.Log.d("AdminApproval", "Added mentor: " + mentor.getFullName());
                         }
                         
+                        android.util.Log.d("AdminApproval", "Total mentors in list: " + pendingMentors.size());
                         adapter.notifyDataSetChanged();
                         emptyView.setVisibility(pendingMentors.isEmpty() ? View.VISIBLE : View.GONE);
                     }
                 } catch (Exception e) {
+                    android.util.Log.e("AdminApproval", "Error parsing response", e);
                     e.printStackTrace();
                 }
                 progressBar.setVisibility(View.GONE);
@@ -118,8 +122,18 @@ public class AdminApprovalFragment extends Fragment implements PendingMentorAdap
                 public void onSuccess(JSONObject response) {
                     try {
                         if (response.getBoolean("success")) {
-                            Toast.makeText(requireContext(), "Mentor approved", Toast.LENGTH_SHORT).show();
-                            loadPendingMentors();
+                            Toast.makeText(requireContext(), "Mentor approved - " + mentor.getFullName(), Toast.LENGTH_SHORT).show();
+                            // Remove from list
+                            int position = pendingMentors.indexOf(mentor);
+                            if (position >= 0) {
+                                pendingMentors.remove(position);
+                                adapter.notifyItemRemoved(position);
+                                emptyView.setVisibility(pendingMentors.isEmpty() ? View.VISIBLE : View.GONE);
+                            }
+                            // Refresh dashboard stats
+                            if (getActivity() instanceof com.mentorbridge.app.activities.MainActivity) {
+                                ((com.mentorbridge.app.activities.MainActivity) getActivity()).refreshAdminDashboard();
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -148,13 +162,23 @@ public class AdminApprovalFragment extends Fragment implements PendingMentorAdap
             params.put("mentor_user_id", mentor.getId());
             params.put("action", "reject");
             
-            apiClient.approveMentor(params, new ApiClient.ApiResponseListener() {
+            apiClient.rejectMentor(params, new ApiClient.ApiResponseListener() {
                 @Override
                 public void onSuccess(JSONObject response) {
                     try {
                         if (response.getBoolean("success")) {
-                            Toast.makeText(requireContext(), "Mentor rejected", Toast.LENGTH_SHORT).show();
-                            loadPendingMentors();
+                            Toast.makeText(requireContext(), "Mentor rejected - " + mentor.getFullName(), Toast.LENGTH_SHORT).show();
+                            // Remove from list
+                            int position = pendingMentors.indexOf(mentor);
+                            if (position >= 0) {
+                                pendingMentors.remove(position);
+                                adapter.notifyItemRemoved(position);
+                                emptyView.setVisibility(pendingMentors.isEmpty() ? View.VISIBLE : View.GONE);
+                            }
+                            // Refresh dashboard stats
+                            if (getActivity() instanceof com.mentorbridge.app.activities.MainActivity) {
+                                ((com.mentorbridge.app.activities.MainActivity) getActivity()).refreshAdminDashboard();
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

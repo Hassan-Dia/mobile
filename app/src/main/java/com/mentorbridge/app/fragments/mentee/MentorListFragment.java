@@ -7,8 +7,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -31,13 +35,16 @@ import java.util.List;
 public class MentorListFragment extends Fragment {
 
     private EditText searchEditText;
+    private Spinner categorySpinner;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefresh;
     private ProgressBar progressBar;
+    private TextView emptyView;
     
     private ApiClient apiClient;
     private MentorAdapter adapter;
     private List<Mentor> mentorList = new ArrayList<>();
+    private String selectedCategory = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,9 +61,28 @@ public class MentorListFragment extends Fragment {
 
     private void initViews(View view) {
         searchEditText = view.findViewById(R.id.searchEditText);
+        categorySpinner = view.findViewById(R.id.categorySpinner);
         recyclerView = view.findViewById(R.id.recyclerView);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         progressBar = view.findViewById(R.id.progressBar);
+        emptyView = view.findViewById(R.id.emptyView);
+
+        // Setup category spinner
+        String[] categories = {"All Categories", "Java Development", "Web Development", "Mobile Development", "Data Science", "UI/UX Design"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categories);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(spinnerAdapter);
+        
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategory = position == 0 ? "" : categories[position];
+                loadMentors(searchEditText.getText().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,6 +117,9 @@ public class MentorListFragment extends Fragment {
         if (!search.isEmpty()) {
             query += "&search=" + search;
         }
+        if (!selectedCategory.isEmpty()) {
+            query += "&category=" + selectedCategory;
+        }
 
         apiClient.getMentors(query, new ApiClient.ApiResponseListener() {
             @Override
@@ -113,6 +142,8 @@ public class MentorListFragment extends Fragment {
                             mentorList.add(mentor);
                         }
                         adapter.notifyDataSetChanged();
+                        emptyView.setVisibility(mentorList.isEmpty() ? View.VISIBLE : View.GONE);
+                        recyclerView.setVisibility(mentorList.isEmpty() ? View.GONE : View.VISIBLE);
                     }
                 } catch (Exception e) {
                     Toast.makeText(requireContext(), "Error loading mentors", Toast.LENGTH_SHORT).show();
