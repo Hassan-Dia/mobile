@@ -52,58 +52,35 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             ];
         }
         
-        // Get booked sessions for this mentor (next 4 weeks only)
-        $bookedQuery = "SELECT session_date, session_time 
-                        FROM sessions 
-                        WHERE mentor_id = :mentor_id 
-                        AND status IN ('confirmed', 'pending')
-                        AND session_date >= CURDATE()
-                        AND session_date <= DATE_ADD(CURDATE(), INTERVAL 4 WEEK)";
-        $bookedStmt = $db->prepare($bookedQuery);
-        $bookedStmt->bindParam(":mentor_id", $mentorId);
-        $bookedStmt->execute();
-        
-        $bookedSlots = [];
-        while ($bookedRow = $bookedStmt->fetch(PDO::FETCH_ASSOC)) {
-            // Calculate day of week from date
-            $date = new DateTime($bookedRow['session_date']);
-            $dayOfWeek = $date->format('l'); // Monday, Tuesday, etc.
-            $time = substr($bookedRow['session_time'], 0, 5); // HH:MM
-            $slotKey = $dayOfWeek . '|' . $time;
-            
-            // Add to booked array only if not already there (avoid duplicates from multiple weeks)
-            if (!isset($bookedSlots[$slotKey])) {
-                $bookedSlots[$slotKey] = 1;
-            }
-        }
-        
-        // Get real availability from database
-        $availQuery = "SELECT id, day_of_week, start_time, end_time, is_active 
+        // Get available session slots from availability table (specific dates, not recurring)
+        $availQuery = "SELECT id, session_date, session_time, duration, topic, is_active 
                        FROM availability 
                        WHERE mentor_id = :mentor_id 
                        AND is_active = 1
-                       ORDER BY FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), 
-                                start_time";
+                       AND session_date >= CURDATE()
+                       ORDER BY session_date, session_time";
         $availStmt = $db->prepare($availQuery);
         $availStmt->bindParam(":mentor_id", $mentorId);
         $availStmt->execute();
         
         $availability = [];
         while ($availRow = $availStmt->fetch(PDO::FETCH_ASSOC)) {
-            $startTime = substr($availRow['start_time'], 0, 5); // HH:MM
-            $endTime = substr($availRow['end_time'], 0, 5); // HH:MM
-            $dayOfWeek = $availRow['day_of_week'];
-            $slotKey = $dayOfWeek . '|' . $startTime;
+            // Calculate day of week from date for display
+            $date = new DateTime($availRow['session_date']);
+            $dayOfWeek = $date->format('l'); // Monday, Tuesday, etc.
+            $timeStart = substr($availRow['session_time'], 0, 5); // HH:MM
+            $timeEnd = date('H:i', strtotime($availRow['session_time']) + ($availRow['duration'] * 60));
             
-            // Only include slots that are NOT booked
-            if (!isset($bookedSlots[$slotKey])) {
-                $availability[] = [
-                    "id" => (int)$availRow['id'],
-                    "day_of_week" => $dayOfWeek,
-                    "time_slot" => $startTime . '-' . $endTime,
-                    "is_available" => 1
-                ];
-            }
+            $availability[] = [
+                "id" => (int)$availRow['id'],
+                "session_date" => $availRow['session_date'],
+                "session_time" => $timeStart,
+                "day_of_week" => $dayOfWeek,
+                "time_slot" => $timeStart . '-' . $timeEnd,
+                "duration" => (int)$availRow['duration'],
+                "topic" => $availRow['topic'],
+                "is_available" => 1
+            ];
         }
         
         $mentor = [

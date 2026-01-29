@@ -46,6 +46,9 @@ public class BookSessionActivity extends AppCompatActivity {
     
     private List<String> availableDays;
     private JSONObject availabilityByDay;
+    private JSONObject availabilitySlots; // Maps "day|time" -> availability object
+    
+    private int selectedAvailabilityId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,23 +87,49 @@ public class BookSessionActivity extends AppCompatActivity {
     private void parseAvailability() throws JSONException {
         availableDays = new ArrayList<>();
         availabilityByDay = new JSONObject();
+        availabilitySlots = new JSONObject();
         
         for (int i = 0; i < availabilityData.length(); i++) {
             JSONObject slot = availabilityData.getJSONObject(i);
             if (slot.getInt("is_available") == 1) {
-                String day = slot.getString("day_of_week");
+                String dayOfWeek = slot.getString("day_of_week");
+                String sessionDate = slot.optString("session_date", "");
                 String timeSlot = slot.getString("time_slot");
+                int availId = slot.getInt("id");
                 
-                if (!availableDays.contains(day)) {
-                    availableDays.add(day);
+                // Format display as "Wednesday, Feb 4" instead of just "Wednesday"
+                String displayDay = dayOfWeek;
+                if (!sessionDate.isEmpty()) {
+                    try {
+                        String[] parts = sessionDate.split("-");
+                        if (parts.length == 3) {
+                            String month = getMonthAbbr(Integer.parseInt(parts[1]));
+                            displayDay = dayOfWeek + ", " + month + " " + Integer.parseInt(parts[2]);
+                        }
+                    } catch (Exception e) {
+                        // Keep day as is
+                    }
                 }
                 
-                if (!availabilityByDay.has(day)) {
-                    availabilityByDay.put(day, new JSONArray());
+                if (!availableDays.contains(displayDay)) {
+                    availableDays.add(displayDay);
                 }
-                availabilityByDay.getJSONArray(day).put(timeSlot);
+                
+                if (!availabilityByDay.has(displayDay)) {
+                    availabilityByDay.put(displayDay, new JSONArray());
+                }
+                availabilityByDay.getJSONArray(displayDay).put(timeSlot);
+                
+                // Store full slot object by "displayDay|time" key
+                String slotKey = displayDay + "|" + timeSlot;
+                availabilitySlots.put(slotKey, slot);
             }
         }
+    }
+    
+    private String getMonthAbbr(int month) {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return month >= 1 && month <= 12 ? months[month - 1] : "";
     }
 
     private void initViews() {
@@ -127,14 +156,9 @@ public class BookSessionActivity extends AppCompatActivity {
     }
 
     private void setupSpinners() {
-        // Only show days that have availability
+        // Show only days that have actual availability
         if (availableDays.isEmpty()) {
-            // Fallback to all days if no availability data
-            availableDays.add("Monday");
-            availableDays.add("Tuesday");
-            availableDays.add("Wednesday");
-            availableDays.add("Thursday");
-            availableDays.add("Friday");
+            availableDays.add("No availability");
         }
 
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, 
@@ -170,21 +194,44 @@ public class BookSessionActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-            // Fallback times if parsing fails
+            // No times available
         }
         
-        // Fallback to default times if none available
+        // Don't show fake slots - only show real availability
         if (times.isEmpty()) {
-            times.add("09:00-10:00");
-            times.add("10:00-11:00");
-            times.add("14:00-15:00");
-            times.add("15:00-16:00");
+            times.add("No times available");
         }
 
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, 
                 android.R.layout.simple_spinner_item, times);
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTime.setAdapter(timeAdapter);
+        
+        // Update selected availability ID when time changes
+        spinnerTime.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                String selectedDay = spinnerDay.getSelectedItem().toString();
+                String selectedTime = spinnerTime.getSelectedItem().toString();
+                String slotKey = selectedDay + "|" + selectedTime;
+                
+                try {
+                    if (availabilitySlots != null && availabilitySlots.has(slotKey)) {
+                        JSONObject slot = availabilitySlots.getJSONObject(slotKey);
+                        selectedAvailabilityId = slot.getInt("id");
+                    } else {
+                        selectedAvailabilityId = -1;
+                    }
+                } catch (JSONException e) {
+                    selectedAvailabilityId = -1;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+                selectedAvailabilityId = -1;
+            }
+        });
     }
 
     private void calculatePrice() {
@@ -195,8 +242,10 @@ public class BookSessionActivity extends AppCompatActivity {
     }
 
     private void bookSession() {
-        String selectedDay = spinnerDay.getSelectedItem().toString();
-        String selectedTime = spinnerTime.getSelectedItem().toString();
+        if (selectedAvailabilityId == -1) {
+            Toast.makeText(this, "Please select a valid time slot", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (!Utils.isNetworkAvailable(this)) {
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
@@ -207,10 +256,8 @@ public class BookSessionActivity extends AppCompatActivity {
 
         try {
             JSONObject params = new JSONObject();
-            params.put("mentee_user_id", sessionManager.getUserId());
-            params.put("mentor_id", mentorId);
-            params.put("selected_day", selectedDay);
-            params.put("selected_time", selectedTime);
+            params.put("user_id", sessionManager.getUserId());
+            params.put("availability_id", selectedAvailabilityId);
 
             apiClient.bookSession(params, new ApiClient.ApiResponseListener() {
                 @Override

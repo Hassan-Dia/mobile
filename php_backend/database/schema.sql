@@ -83,26 +83,31 @@ CREATE TABLE IF NOT EXISTS mentees (
     INDEX idx_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Availability table for mentor schedules
+-- Availability table for mentor session slots
+-- Each row is a specific bookable session slot with a date
 CREATE TABLE IF NOT EXISTS availability (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mentor_id INT NOT NULL,
-    day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
+    session_date DATE NOT NULL,
+    session_time TIME NOT NULL,
+    duration INT DEFAULT 60,
+    topic VARCHAR(255) DEFAULT 'General Session',
     is_active TINYINT(1) DEFAULT 1,
+    booked_by_user_id INT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (mentor_id) REFERENCES mentors(id) ON DELETE CASCADE,
+    FOREIGN KEY (booked_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
     INDEX idx_mentor_id (mentor_id),
-    INDEX idx_day_time (day_of_week, start_time)
+    INDEX idx_date_time (session_date, session_time),
+    INDEX idx_is_active (is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Insert sample data - 10 users total
 -- 1 Admin, 5 Mentors, 4 Mentees
--- All passwords: password (hashed)
+-- Admin password: admin123 | All other passwords: password (hashed)
 INSERT INTO users (name, email, password) VALUES
--- Admin User (ID: 1)
-('Admin User', 'admin@mentorbridge.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+-- Admin User (ID: 1) - Password: admin123
+('Admin User', 'admin@mentorbridge.com', '$2y$10$VW0KBFPlvTGuc4FSaodqH.yjMOg2SQ5juolkd0BzJn8G26jAFAh6W'),
 
 -- Mentor Users (ID: 2-6)
 ('Sarah Chen', 'sarah.chen@mentorbridge.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
@@ -187,75 +192,49 @@ INSERT INTO sessions (mentor_id, user_id, session_date, session_time, topic, sta
 (3, 9, '2026-01-18', '10:00:00', 'Wireframing Workshop', 'cancelled'),
 (5, 8, '2026-01-25', '13:00:00', 'LinkedIn Profile Optimization', 'cancelled');
 
--- Insert sample availability for all 5 approved mentors
--- NOTE: Availability slots that match confirmed/completed sessions should NOT be included
--- because they would have been removed after payment
-INSERT INTO availability (mentor_id, day_of_week, start_time, end_time, is_active) VALUES
--- Sarah Chen (Mentor ID: 1) - Software Development
--- Excluded: Monday 10:00 (Feb 3 confirmed session)
-(1, 'Monday', '09:00:00', '10:00:00', 1),
--- (1, 'Monday', '10:00:00', '11:00:00', 1),  -- REMOVED: booked Feb 3
-(1, 'Tuesday', '14:00:00', '15:00:00', 1),
-(1, 'Tuesday', '15:00:00', '16:00:00', 1),
-(1, 'Wednesday', '09:00:00', '10:00:00', 1),
-(1, 'Wednesday', '10:00:00', '11:00:00', 1),
-(1, 'Thursday', '14:00:00', '15:00:00', 1),
-(1, 'Thursday', '15:00:00', '16:00:00', 1),
-(1, 'Friday', '09:00:00', '10:00:00', 1),
-(1, 'Friday', '10:00:00', '11:00:00', 1),
+-- Insert sample availability slots (specific dates, not recurring)
+-- These are sessions mentors have made available for booking
+INSERT INTO availability (mentor_id, session_date, session_time, duration, topic, is_active, booked_by_user_id) VALUES
+-- Sarah Chen (Mentor ID: 1) - Available slots for February 2026
+(1, '2026-02-03', '09:00:00', 60, 'General Session', 1, NULL),
+(1, '2026-02-05', '09:00:00', 60, 'General Session', 1, NULL),
+(1, '2026-02-05', '10:00:00', 60, 'General Session', 1, NULL),
+(1, '2026-02-06', '14:00:00', 60, 'General Session', 1, NULL),
+(1, '2026-02-07', '09:00:00', 60, 'General Session', 1, NULL),
+(1, '2026-02-10', '10:00:00', 60, 'General Session', 0, 10),  -- Booked by user 10 (pending payment for confirmed session)
+(1, '2026-02-12', '14:00:00', 60, 'General Session', 1, NULL),
 
--- Michael Rodriguez (Mentor ID: 2) - Data Science
--- Excluded: Tuesday 14:00 (Feb 4 confirmed session)
-(2, 'Monday', '10:00:00', '11:00:00', 1),
-(2, 'Monday', '14:00:00', '15:00:00', 1),
-(2, 'Tuesday', '09:00:00', '10:00:00', 1),
--- (2, 'Tuesday', '14:00:00', '15:00:00', 1),  -- REMOVED: booked Feb 4 (14:00 session)
-(2, 'Tuesday', '15:00:00', '16:00:00', 1),
-(2, 'Wednesday', '10:00:00', '11:00:00', 1),
-(2, 'Wednesday', '14:00:00', '15:00:00', 1),
-(2, 'Thursday', '09:00:00', '10:00:00', 1),
-(2, 'Thursday', '15:00:00', '16:00:00', 1),
-(2, 'Friday', '10:00:00', '11:00:00', 1),
-(2, 'Friday', '14:00:00', '15:00:00', 1),
+-- Michael Rodriguez (Mentor ID: 2) - Available slots
+(2, '2026-02-03', '10:00:00', 60, 'General Session', 1, NULL),
+(2, '2026-02-04', '10:00:00', 60, 'General Session', 0, 7),   -- Booked by user 7 (pending payment for confirmed session)
+(2, '2026-02-06', '14:00:00', 60, 'General Session', 1, NULL),
+(2, '2026-02-07', '10:00:00', 60, 'General Session', 1, NULL),
+(2, '2026-02-10', '14:00:00', 60, 'General Session', 1, NULL),
+(2, '2026-02-11', '10:00:00', 60, 'General Session', 1, NULL),
 
--- Emma Thompson (Mentor ID: 3) - UI/UX Design
--- Wednesday 16:00 disabled (pending session Feb 5)
-(3, 'Monday', '09:00:00', '10:00:00', 1),
-(3, 'Tuesday', '09:00:00', '10:00:00', 1),
-(3, 'Tuesday', '10:00:00', '11:00:00', 1),
-(3, 'Wednesday', '14:00:00', '15:00:00', 1),
-(3, 'Wednesday', '15:00:00', '16:00:00', 1),
-(3, 'Wednesday', '16:00:00', '17:00:00', 0),  -- DISABLED: pending session Feb 5
-(3, 'Thursday', '09:00:00', '10:00:00', 1),
-(3, 'Thursday', '10:00:00', '11:00:00', 1),
-(3, 'Friday', '14:00:00', '15:00:00', 1),
-(3, 'Friday', '15:00:00', '16:00:00', 1),
+-- Emma Thompson (Mentor ID: 3) - Available slots
+(3, '2026-02-03', '09:00:00', 60, 'General Session', 1, NULL),
+(3, '2026-02-04', '14:00:00', 60, 'General Session', 1, NULL),
+(3, '2026-02-05', '09:00:00', 60, 'General Session', 1, NULL),
+(3, '2026-02-05', '16:00:00', 60, 'General Session', 0, 8),   -- Booked by user 8 (pending payment)
+(3, '2026-02-06', '09:00:00', 60, 'General Session', 1, NULL),
+(3, '2026-02-11', '14:00:00', 60, 'General Session', 1, NULL),
 
--- David Kim (Mentor ID: 4) - Cloud Architecture
--- Thursday 11:00 disabled (pending session Feb 6)
-(4, 'Monday', '11:00:00', '12:00:00', 1),
-(4, 'Monday', '13:00:00', '14:00:00', 1),
-(4, 'Tuesday', '11:00:00', '12:00:00', 1),
-(4, 'Tuesday', '13:00:00', '14:00:00', 1),
-(4, 'Wednesday', '11:00:00', '12:00:00', 1),
-(4, 'Wednesday', '13:00:00', '14:00:00', 1),
-(4, 'Thursday', '11:00:00', '12:00:00', 0),  -- DISABLED: pending session Feb 6
-(4, 'Thursday', '13:00:00', '14:00:00', 1),
-(4, 'Friday', '11:00:00', '12:00:00', 1),
-(4, 'Friday', '13:00:00', '14:00:00', 1),
+-- David Kim (Mentor ID: 4) - Available slots
+(4, '2026-02-03', '11:00:00', 60, 'General Session', 1, NULL),
+(4, '2026-02-05', '13:00:00', 60, 'General Session', 1, NULL),
+(4, '2026-02-06', '11:00:00', 60, 'General Session', 0, 9),   -- Booked by user 9 (pending payment)
+(4, '2026-02-07', '11:00:00', 60, 'General Session', 1, NULL),
+(4, '2026-02-10', '13:00:00', 60, 'General Session', 1, NULL),
+(4, '2026-02-12', '11:00:00', 60, 'General Session', 1, NULL),
 
--- Lisa Anderson (Mentor ID: 5) - Career Coaching
--- Excluded: Friday 15:00 (Feb 7 confirmed session)
-(5, 'Monday', '10:00:00', '11:00:00', 1),
-(5, 'Monday', '15:00:00', '16:00:00', 1),
-(5, 'Tuesday', '10:00:00', '11:00:00', 1),
-(5, 'Tuesday', '15:00:00', '16:00:00', 1),
-(5, 'Wednesday', '10:00:00', '11:00:00', 1),
-(5, 'Wednesday', '15:00:00', '16:00:00', 1),
-(5, 'Thursday', '10:00:00', '11:00:00', 1),
-(5, 'Thursday', '15:00:00', '16:00:00', 1),
-(5, 'Friday', '10:00:00', '11:00:00', 1);
--- (5, 'Friday', '15:00:00', '16:00:00', 1);  -- REMOVED: booked Feb 7
+-- Lisa Anderson (Mentor ID: 5) - Available slots
+(5, '2026-02-03', '10:00:00', 60, 'General Session', 1, NULL),
+(5, '2026-02-04', '15:00:00', 60, 'General Session', 1, NULL),
+(5, '2026-02-06', '10:00:00', 60, 'General Session', 1, NULL),
+(5, '2026-02-10', '10:00:00', 60, 'General Session', 1, NULL),
+(5, '2026-02-11', '15:00:00', 60, 'General Session', 1, NULL),
+(5, '2026-02-12', '10:00:00', 60, 'General Session', 1, NULL);
 
 -- Insert realistic reviews (15 total - one for each completed session)
 INSERT INTO reviews (mentor_id, user_id, rating, comment) VALUES

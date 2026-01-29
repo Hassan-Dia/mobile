@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,20 +21,24 @@ public final class DialogAddSlotBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
+  public final MaterialButton btnSelectDate;
+
+  @NonNull
   public final MaterialButton btnSelectTime;
 
   @NonNull
-  public final Spinner spinnerDay;
+  public final TextView txtSelectedDate;
 
   @NonNull
   public final TextView txtTimeSlot;
 
   private DialogAddSlotBinding(@NonNull LinearLayout rootView,
-      @NonNull MaterialButton btnSelectTime, @NonNull Spinner spinnerDay,
-      @NonNull TextView txtTimeSlot) {
+      @NonNull MaterialButton btnSelectDate, @NonNull MaterialButton btnSelectTime,
+      @NonNull TextView txtSelectedDate, @NonNull TextView txtTimeSlot) {
     this.rootView = rootView;
+    this.btnSelectDate = btnSelectDate;
     this.btnSelectTime = btnSelectTime;
-    this.spinnerDay = spinnerDay;
+    this.txtSelectedDate = txtSelectedDate;
     this.txtTimeSlot = txtTimeSlot;
   }
 
@@ -66,15 +69,21 @@ public final class DialogAddSlotBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnSelectDate;
+      MaterialButton btnSelectDate = ViewBindings.findChildViewById(rootView, id);
+      if (btnSelectDate == null) {
+        break missingId;
+      }
+
       id = R.id.btnSelectTime;
       MaterialButton btnSelectTime = ViewBindings.findChildViewById(rootView, id);
       if (btnSelectTime == null) {
         break missingId;
       }
 
-      id = R.id.spinnerDay;
-      Spinner spinnerDay = ViewBindings.findChildViewById(rootView, id);
-      if (spinnerDay == null) {
+      id = R.id.txtSelectedDate;
+      TextView txtSelectedDate = ViewBindings.findChildViewById(rootView, id);
+      if (txtSelectedDate == null) {
         break missingId;
       }
 
@@ -84,8 +93,8 @@ public final class DialogAddSlotBinding implements ViewBinding {
         break missingId;
       }
 
-      return new DialogAddSlotBinding((LinearLayout) rootView, btnSelectTime, spinnerDay,
-          txtTimeSlot);
+      return new DialogAddSlotBinding((LinearLayout) rootView, btnSelectDate, btnSelectTime,
+          txtSelectedDate, txtTimeSlot);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

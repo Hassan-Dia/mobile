@@ -78,17 +78,33 @@ public class AvailabilityFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_slot, null);
         
-        Spinner spinnerDay = dialogView.findViewById(R.id.spinnerDay);
+        TextView txtSelectedDate = dialogView.findViewById(R.id.txtSelectedDate);
+        MaterialButton btnSelectDate = dialogView.findViewById(R.id.btnSelectDate);
         TextView txtTimeSlot = dialogView.findViewById(R.id.txtTimeSlot);
         MaterialButton btnSelectTime = dialogView.findViewById(R.id.btnSelectTime);
         
-        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(requireContext(), 
-            android.R.layout.simple_spinner_item, daysOfWeek);
-        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDay.setAdapter(dayAdapter);
-        
+        final String[] selectedDate = {null};
         final String[] selectedTime = {"09:00"};
         txtTimeSlot.setText(selectedTime[0]);
+        
+        btnSelectDate.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(
+                requireContext(),
+                (view, year, month, dayOfMonth) -> {
+                    // Format as YYYY-MM-DD
+                    selectedDate[0] = String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, dayOfMonth);
+                    // Display formatted date
+                    txtSelectedDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", month + 1, dayOfMonth, year));
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            );
+            // Don't allow dates in the past
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePicker.show();
+        });
         
         btnSelectTime.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -106,40 +122,67 @@ public class AvailabilityFragment extends Fragment {
         builder.setView(dialogView)
             .setTitle("Add Time Slot")
             .setPositiveButton("Add", (dialog, which) -> {
-                String day = daysOfWeek[spinnerDay.getSelectedItemPosition()];
-                addTimeSlot(day, selectedTime[0]);
+                if (selectedDate[0] == null) {
+                    Toast.makeText(requireContext(), "Please select a date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                addTimeSlot(selectedDate[0], selectedTime[0]);
             })
             .setNegativeButton("Cancel", null)
             .show();
     }
 
-    private void addTimeSlot(String day, String timeSlot) {
+    private void addTimeSlot(String sessionDate, String sessionTime) {
         progressBar.setVisibility(View.VISIBLE);
         
         try {
-            JSONObject params = new JSONObject();
-            params.put("mentor_user_id", sessionManager.getUserId());
-            params.put("day_of_week", day);
-            params.put("time_slot", timeSlot);
-            params.put("is_available", true);
-            
-            apiClient.addAvailability(params, new ApiClient.ApiResponseListener() {
+            // First get mentor_id from user_id
+            apiClient.getMentorByUserId(sessionManager.getUserId(), new ApiClient.ApiResponseListener() {
                 @Override
                 public void onSuccess(JSONObject response) {
                     try {
                         if (response.getBoolean("success")) {
-                            Toast.makeText(requireContext(), "Time slot added", Toast.LENGTH_SHORT).show();
-                            loadAvailability();
+                            JSONObject data = response.getJSONObject("data");
+                            int mentorId = data.getInt("id");
+                            
+                            // Now add the availability
+                            JSONObject params = new JSONObject();
+                            params.put("mentor_id", mentorId);
+                            params.put("session_date", sessionDate);
+                            params.put("session_time", sessionTime);
+                            params.put("duration", 60);
+                            params.put("topic", "General Session");
+                            
+                            apiClient.addAvailability(params, new ApiClient.ApiResponseListener() {
+                                @Override
+                                public void onSuccess(JSONObject response) {
+                                    try {
+                                        if (response.getBoolean("success")) {
+                                            Toast.makeText(requireContext(), "Time slot added", Toast.LENGTH_SHORT).show();
+                                            loadAvailability();
+                                        }
+                                    } catch (Exception e) {
+                                        Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(String error) {
+                                    Toast.makeText(requireContext(), "Error adding slot: " + error, Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                     }
-                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError(String error) {
-                    Toast.makeText(requireContext(), "Error adding slot", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Error getting mentor info: " + error, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
             });
@@ -165,6 +208,7 @@ public class AvailabilityFragment extends Fragment {
                             Availability availability = new Availability();
                             availability.setId(obj.getInt("id"));
                             availability.setDayOfWeek(obj.getString("day_of_week"));
+                            availability.setSessionDate(obj.optString("session_date", ""));
                             availability.setTimeSlot(obj.getString("time_slot"));
                             availability.setAvailable(obj.getBoolean("is_available"));
                             availabilityList.add(availability);

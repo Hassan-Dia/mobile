@@ -39,7 +39,20 @@ public class AvailabilityAdapter extends RecyclerView.Adapter<AvailabilityAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Availability availability = availabilityList.get(position);
         
-        holder.txtDay.setText(availability.getDayOfWeek());
+        // Show day with date if available (e.g., "Wednesday, Feb 4")
+        String dayText = availability.getDayOfWeek();
+        if (availability.getSessionDate() != null && !availability.getSessionDate().isEmpty()) {
+            try {
+                String[] parts = availability.getSessionDate().split("-");
+                if (parts.length == 3) {
+                    String month = getMonthAbbr(Integer.parseInt(parts[1]));
+                    dayText = availability.getDayOfWeek() + ", " + month + " " + Integer.parseInt(parts[2]);
+                }
+            } catch (Exception e) {
+                // Keep day text as is
+            }
+        }
+        holder.txtDay.setText(dayText);
         holder.txtTime.setText(availability.getTimeSlot());
         
         String status = availability.getSlotStatus() != null ? 
@@ -56,6 +69,11 @@ public class AvailabilityAdapter extends RecyclerView.Adapter<AvailabilityAdapte
     @Override
     public int getItemCount() {
         return availabilityList.size();
+    }
+
+    private String getMonthAbbr(int month) {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return month >= 1 && month <= 12 ? months[month - 1] : "";
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

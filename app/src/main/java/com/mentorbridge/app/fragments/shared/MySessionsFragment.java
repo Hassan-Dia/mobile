@@ -154,6 +154,9 @@ public class MySessionsFragment extends Fragment {
                                 JSONObject obj = data.getJSONObject(i);
                                 Session session = new Session();
                                 session.setId(obj.getInt("id"));
+                                session.setAvailabilityId(obj.optInt("availability_id", 0));
+                                session.setSource(obj.optString("source", "sessions"));
+                                session.setMentorId(obj.optInt("mentor_id", 0));
                                 session.setScheduledAt(obj.getString("scheduled_at"));
                                 session.setAmount(obj.getDouble("amount"));
                                 session.setStatus(obj.getString("status"));
@@ -182,7 +185,15 @@ public class MySessionsFragment extends Fragment {
     private void paySession(Session session) {
         try {
             JSONObject params = new JSONObject();
-            params.put("session_id", session.getId());
+            
+            // For pending bookings from availability table, send availability_id
+            if ("availability".equals(session.getSource()) && session.getAvailabilityId() > 0) {
+                params.put("availability_id", session.getAvailabilityId());
+                params.put("session_id", session.getId());
+            } else {
+                // For sessions already in sessions table
+                params.put("session_id", session.getId());
+            }
 
             apiClient.paySession(params, new ApiClient.ApiResponseListener() {
                 @Override
@@ -319,9 +330,9 @@ public class MySessionsFragment extends Fragment {
         
         try {
             JSONObject params = new JSONObject();
-            params.put("session_id", session.getId());
+            params.put("user_id", sessionManager.getUserId());
             params.put("mentor_id", session.getMentorId());
-            params.put("rating", rating);
+            params.put("rating", (int)rating);
             params.put("review", review);
             
             apiClient.submitFeedback(params, new ApiClient.ApiResponseListener() {

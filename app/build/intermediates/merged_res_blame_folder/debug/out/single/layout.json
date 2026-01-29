@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.mentorbridge.app-mergeDebugResources-44:/layout/dialog_add_slot.xml",
+        "source": "com.mentorbridge.app-main-47:/layout/dialog_add_slot.xml"
+    },
+    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\fragment_admin_dashboard.xml",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\fragment_admin_dashboard.xml"
     },
@@ -14,10 +18,6 @@
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_auth.xml",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_auth.xml"
-    },
-    {
-        "merged": "com.mentorbridge.app-mergeDebugResources-44:/layout/activity_book_session.xml",
-        "source": "com.mentorbridge.app-main-47:/layout/activity_book_session.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\fragment_mentee_dashboard.xml",

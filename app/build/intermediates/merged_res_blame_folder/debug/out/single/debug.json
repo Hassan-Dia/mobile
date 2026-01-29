@@ -92,12 +92,12 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\menu\\mentor_bottom_menu.xml"
     },
     {
-        "merged": "com.mentorbridge.app-merged_res-45:/layout_activity_book_session.xml.flat",
-        "source": "com.mentorbridge.app-main-47:/layout/activity_book_session.xml"
-    },
-    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\menu_admin_drawer_menu.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\menu\\admin_drawer_menu.xml"
+    },
+    {
+        "merged": "com.mentorbridge.app-merged_res-45:/layout_dialog_add_slot.xml.flat",
+        "source": "com.mentorbridge.app-main-47:/layout/dialog_add_slot.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\layout_fragment_mentor_list.xml.flat",

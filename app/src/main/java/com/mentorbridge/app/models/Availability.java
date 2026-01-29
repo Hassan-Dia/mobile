@@ -3,6 +3,7 @@ package com.mentorbridge.app.models;
 public class Availability {
     private int id;
     private String dayOfWeek;
+    private String sessionDate;
     private String timeSlot;
     private boolean isAvailable;
     private int hasBooking;
@@ -25,6 +26,14 @@ public class Availability {
 
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getSessionDate() {
+        return sessionDate;
+    }
+
+    public void setSessionDate(String sessionDate) {
+        this.sessionDate = sessionDate;
     }
 
     public String getTimeSlot() {

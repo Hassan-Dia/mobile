@@ -122,6 +122,23 @@ public class ApiClient {
         
         VolleySingleton.getInstance(context).addToRequestQueue(request);
     }
+    
+    public void getMentorByUserId(int userId, ApiResponseListener listener) {
+        String url = BASE_URL + "get_mentor_by_user.php?user_id=" + userId;
+        
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                response -> listener.onSuccess(response),
+                error -> {
+                    Log.e(TAG, "Error loading mentor by user", error);
+                    listener.onError("Failed to load mentor info");
+                }
+        );
+        
+        VolleySingleton.getInstance(context).addToRequestQueue(request);
+    }
 
     public void updateMentorProfile(JSONObject params, ApiResponseListener listener) {
         String url = BASE_URL + "setup_mentor_profile.php";

@@ -64,8 +64,8 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             holder.btnPay.setOnClickListener(v -> listener.onPayClick(session));
         }
 
-        // Mentors can complete sessions that are pending OR confirmed
-        if (isMentor && (session.isPending() || "confirmed".equals(session.getStatus()))) {
+        // Mentors can only complete sessions that are confirmed (paid)
+        if (isMentor && "confirmed".equals(session.getStatus())) {
             holder.btnComplete.setVisibility(View.VISIBLE);
             holder.btnComplete.setOnClickListener(v -> listener.onCompleteClick(session));
         }

@@ -16,19 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Accept both camelCase and snake_case field names
     $mentorId = $data->mentor_id ?? $data->mentorId ?? null;
-    $dayOfWeek = $data->day_of_week ?? $data->dayOfWeek ?? null;
-    $startTime = $data->start_time ?? $data->startTime ?? null;
-    $endTime = $data->end_time ?? $data->endTime ?? null;
+    $sessionDate = $data->session_date ?? $data->sessionDate ?? null;
+    $sessionTime = $data->session_time ?? $data->sessionTime ?? null;
+    $duration = $data->duration ?? 60;
+    $topic = $data->topic ?? "General Session";
     
-    if (!empty($mentorId) && !empty($dayOfWeek) && !empty($startTime) && !empty($endTime)) {
+    if (!empty($mentorId) && !empty($sessionDate) && !empty($sessionTime)) {
         
-        // Validate day of week
-        $validDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        if (!in_array($dayOfWeek, $validDays)) {
+        // Validate date is in the future
+        if (strtotime($sessionDate) < strtotime('today')) {
             http_response_code(400);
             echo json_encode([
                 "success" => false,
-                "message" => "Invalid day of week"
+                "message" => "Session date must be in the future"
             ]);
             exit;
         }
@@ -36,32 +36,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check for duplicate slot
         $checkQuery = "SELECT id FROM availability 
                        WHERE mentor_id = :mentor_id 
-                       AND day_of_week = :day_of_week 
-                       AND start_time = :start_time";
+                       AND session_date = :session_date 
+                       AND session_time = :session_time";
         $checkStmt = $db->prepare($checkQuery);
         $checkStmt->bindParam(":mentor_id", $mentorId);
-        $checkStmt->bindParam(":day_of_week", $dayOfWeek);
-        $checkStmt->bindParam(":start_time", $startTime);
+        $checkStmt->bindParam(":session_date", $sessionDate);
+        $checkStmt->bindParam(":session_time", $sessionTime);
         $checkStmt->execute();
         
         if ($checkStmt->rowCount() > 0) {
             http_response_code(400);
             echo json_encode([
                 "success" => false,
-                "message" => "Availability slot already exists"
+                "message" => "Availability slot already exists for this date and time"
             ]);
             exit;
         }
         
         // Insert new availability slot
-        $query = "INSERT INTO availability (mentor_id, day_of_week, start_time, end_time, is_active, created_at) 
-                  VALUES (:mentor_id, :day_of_week, :start_time, :end_time, 1, NOW())";
+        $query = "INSERT INTO availability (mentor_id, session_date, session_time, duration, topic, is_active, created_at) 
+                  VALUES (:mentor_id, :session_date, :session_time, :duration, :topic, 1, NOW())";
         
         $stmt = $db->prepare($query);
         $stmt->bindParam(":mentor_id", $mentorId);
-        $stmt->bindParam(":day_of_week", $dayOfWeek);
-        $stmt->bindParam(":start_time", $startTime);
-        $stmt->bindParam(":end_time", $endTime);
+        $stmt->bindParam(":session_date", $sessionDate);
+        $stmt->bindParam(":session_time", $sessionTime);
+        $stmt->bindParam(":duration", $duration);
+        $stmt->bindParam(":topic", $topic);
         
         if ($stmt->execute()) {
             $availabilityId = $db->lastInsertId();
@@ -73,9 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "data" => [
                     "id" => $availabilityId,
                     "mentor_id" => $mentorId,
-                    "day_of_week" => $dayOfWeek,
-                    "start_time" => $startTime,
-                    "end_time" => $endTime,
+                    "session_date" => $sessionDate,
+                    "session_time" => $sessionTime,
+                    "duration" => $duration,
+                    "topic" => $topic,
                     "is_active" => 1
                 ]
             ]);

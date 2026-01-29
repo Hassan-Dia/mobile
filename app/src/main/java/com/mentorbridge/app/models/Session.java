@@ -2,6 +2,8 @@ package com.mentorbridge.app.models;
 
 public class Session {
     private int id;
+    private int availabilityId;
+    private String source;
     private int mentorId;
     private int menteeId;
     private String scheduledAt;
@@ -21,6 +23,22 @@ public class Session {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAvailabilityId() {
+        return availabilityId;
+    }
+
+    public void setAvailabilityId(int availabilityId) {
+        this.availabilityId = availabilityId;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public int getMentorId() {

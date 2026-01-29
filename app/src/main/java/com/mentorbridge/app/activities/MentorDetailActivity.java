@@ -73,6 +73,15 @@ public class MentorDetailActivity extends AppCompatActivity {
         loadMentorDetails();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload mentor details when returning from booking to show updated availability
+        if (mentor != null) {
+            loadMentorDetails();
+        }
+    }
+
     private void initViews() {
         progressBar = findViewById(R.id.progressBar);
         contentLayout = findViewById(R.id.contentLayout);
@@ -161,6 +170,7 @@ public class MentorDetailActivity extends AppCompatActivity {
             Availability a = new Availability();
             a.setId(obj.getInt("id"));
             a.setDayOfWeek(obj.getString("day_of_week"));
+            a.setSessionDate(obj.optString("session_date", ""));
             a.setTimeSlot(obj.getString("time_slot"));
             a.setAvailable(obj.getInt("is_available") == 1);
             availList.add(a);
@@ -217,9 +227,11 @@ public class MentorDetailActivity extends AppCompatActivity {
             JSONArray availabilityArray = new JSONArray();
             for (Availability avail : mentor.getAvailability()) {
                 JSONObject obj = new JSONObject();
+                obj.put("id", avail.getId());
                 obj.put("day_of_week", avail.getDayOfWeek());
+                obj.put("session_date", avail.getSessionDate());
                 obj.put("time_slot", avail.getTimeSlot());
-                obj.put("is_available", avail.isAvailable());
+                obj.put("is_available", avail.isAvailable() ? 1 : 0);
                 availabilityArray.put(obj);
             }
             intent.putExtra(BookSessionActivity.EXTRA_AVAILABILITY, availabilityArray.toString());

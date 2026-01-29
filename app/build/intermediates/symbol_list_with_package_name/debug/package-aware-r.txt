@@ -3254,6 +3254,7 @@ id btnLogout
 id btnPay
 id btnRegister
 id btnReject
+id btnSelectDate
 id btnSelectTime
 id btnSubmitProfile
 id buttonPanel
@@ -3731,6 +3732,7 @@ id txtRate
 id txtRatingCount
 id txtReviews
 id txtRole
+id txtSelectedDate
 id txtSkills
 id txtStatus
 id txtSwitchToLogin
