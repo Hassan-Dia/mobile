@@ -36,16 +36,16 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_splash.xml"
     },
     {
-        "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_mentor_detail.xml",
-        "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_mentor_detail.xml"
+        "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_main.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\fragment_mentor_dashboard.xml",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\fragment_mentor_dashboard.xml"
     },
     {
-        "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_main.xml",
-        "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_mentor_detail.xml",
+        "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_mentor_detail.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-mergeDebugResources-44:\\layout\\activity_mentor_waiting_approval.xml",

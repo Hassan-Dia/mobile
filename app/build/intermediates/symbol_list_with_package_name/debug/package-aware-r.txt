@@ -3626,7 +3626,6 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
-id spinnerCategory
 id spinnerDay
 id spinnerTime
 id spline
@@ -3707,6 +3706,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvCategories
 id tvStatusMessage
 id tvStatusTitle
 id txtAmount

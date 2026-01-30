@@ -3625,7 +3625,6 @@ int id snapMargins 0x7f0801e5
 int id south 0x7f0801e6
 int id spacer 0x7f0801e7
 int id special_effects_controller_view_tag 0x7f0801e8
-int id spinnerCategory 0x7f080277
 int id spinnerDay 0x7f0801e9
 int id spinnerTime 0x7f0801ea
 int id spline 0x7f0801eb
@@ -3706,6 +3705,7 @@ int id transition_position 0x7f080235
 int id transition_scene_layoutid_cache 0x7f080236
 int id transition_transform 0x7f080237
 int id triangle 0x7f080238
+int id tvCategories 0x7f080278
 int id tvStatusMessage 0x7f080239
 int id tvStatusTitle 0x7f08023a
 int id txtAmount 0x7f08023b

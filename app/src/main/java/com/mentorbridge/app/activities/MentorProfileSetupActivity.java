@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +24,15 @@ import org.json.JSONObject;
 public class MentorProfileSetupActivity extends AppCompatActivity {
 
     private EditText etBio, etSkills, etExperience, etHourlyRate;
-    private Spinner spinnerCategory;
+    private TextView tvCategories;
     private Button btnSubmitProfile;
     private ProgressBar progressBar;
     private SessionManager sessionManager;
     private ApiClient apiClient;
     
     private String[] categories = {"Java Development", "Web Development", "Mobile Development", "Data Science", "UI/UX Design"};
+    private boolean[] selectedCategories = new boolean[5];
+    private java.util.ArrayList<String> selectedCategoryList = new java.util.ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +72,40 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         etSkills = findViewById(R.id.etSkills);
         etExperience = findViewById(R.id.etExperience);
         etHourlyRate = findViewById(R.id.etHourlyRate);
-        spinnerCategory = findViewById(R.id.spinnerCategory);
+        tvCategories = findViewById(R.id.tvCategories);
         btnSubmitProfile = findViewById(R.id.btnSubmitProfile);
         progressBar = findViewById(R.id.progressBar);
         
-        // Setup category spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
+        // Setup category multi-select
+        tvCategories.setOnClickListener(v -> showCategoryDialog());
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Complete Your Profile");
         }
+    }
+
+    private void showCategoryDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Select Categories")
+            .setMultiChoiceItems(categories, selectedCategories, (dialog, which, isChecked) -> {
+                selectedCategories[which] = isChecked;
+                if (isChecked) {
+                    selectedCategoryList.add(categories[which]);
+                } else {
+                    selectedCategoryList.remove(categories[which]);
+                }
+            })
+            .setPositiveButton("OK", (dialog, which) -> {
+                if (selectedCategoryList.isEmpty()) {
+                    tvCategories.setText("");
+                    tvCategories.setHint("Select categories...");
+                } else {
+                    String categoriesText = android.text.TextUtils.join(", ", selectedCategoryList);
+                    tvCategories.setText(categoriesText);
+                }
+            })
+            .setNegativeButton("Cancel", null)
+            .show();
     }
 
     private void setupListeners() {
@@ -92,7 +117,7 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         String skills = etSkills.getText().toString().trim();
         String experience = etExperience.getText().toString().trim();
         String hourlyRateStr = etHourlyRate.getText().toString().trim();
-        String categories = spinnerCategory.getSelectedItem().toString();
+        String categories = android.text.TextUtils.join(", ", selectedCategoryList);
 
         // Validation
         if (TextUtils.isEmpty(bio)) {
@@ -130,6 +155,11 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         } catch (NumberFormatException e) {
             etHourlyRate.setError("Invalid hourly rate");
             etHourlyRate.requestFocus();
+            return;
+        }
+        
+        if (selectedCategoryList.isEmpty()) {
+            Toast.makeText(this, "Please select at least one category", Toast.LENGTH_SHORT).show();
             return;
         }
 

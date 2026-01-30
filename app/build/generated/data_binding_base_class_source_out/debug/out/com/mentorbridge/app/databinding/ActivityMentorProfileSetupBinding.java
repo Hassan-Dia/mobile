@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -41,13 +41,13 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
   public final ProgressBar progressBar;
 
   @NonNull
-  public final Spinner spinnerCategory;
+  public final TextView tvCategories;
 
   private ActivityMentorProfileSetupBinding(@NonNull ScrollView rootView,
       @NonNull MaterialButton btnSubmitProfile, @NonNull TextInputEditText etBio,
       @NonNull TextInputEditText etExperience, @NonNull TextInputEditText etHourlyRate,
       @NonNull TextInputEditText etSkills, @NonNull ProgressBar progressBar,
-      @NonNull Spinner spinnerCategory) {
+      @NonNull TextView tvCategories) {
     this.rootView = rootView;
     this.btnSubmitProfile = btnSubmitProfile;
     this.etBio = etBio;
@@ -55,7 +55,7 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
     this.etHourlyRate = etHourlyRate;
     this.etSkills = etSkills;
     this.progressBar = progressBar;
-    this.spinnerCategory = spinnerCategory;
+    this.tvCategories = tvCategories;
   }
 
   @Override
@@ -121,14 +121,14 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.spinnerCategory;
-      Spinner spinnerCategory = ViewBindings.findChildViewById(rootView, id);
-      if (spinnerCategory == null) {
+      id = R.id.tvCategories;
+      TextView tvCategories = ViewBindings.findChildViewById(rootView, id);
+      if (tvCategories == null) {
         break missingId;
       }
 
       return new ActivityMentorProfileSetupBinding((ScrollView) rootView, btnSubmitProfile, etBio,
-          etExperience, etHourlyRate, etSkills, progressBar, spinnerCategory);
+          etExperience, etHourlyRate, etSkills, progressBar, tvCategories);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
