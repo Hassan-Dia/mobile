@@ -46,7 +46,7 @@ public class MentorDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView txtRatingCount;
     private RecyclerView recyclerAvailability, recyclerReviews;
-    private Button btnBookSession, btnContactPhone;
+    private Button btnBookSession;
     
     private ApiClient apiClient;
     private SessionManager sessionManager;
@@ -99,13 +99,11 @@ public class MentorDetailActivity extends AppCompatActivity {
         recyclerReviews = findViewById(R.id.recyclerReviews);
         
         btnBookSession = findViewById(R.id.btnBookSession);
-        btnContactPhone = findViewById(R.id.btnContactPhone);
 
         recyclerAvailability.setLayoutManager(new LinearLayoutManager(this));
         recyclerReviews.setLayoutManager(new LinearLayoutManager(this));
 
         btnBookSession.setOnClickListener(v -> openBookSession());
-        btnContactPhone.setOnClickListener(v -> contactPhone());
     }
 
     private void setupToolbar() {
@@ -252,15 +250,6 @@ public class MentorDetailActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "Email not available", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void contactPhone() {
-        // This would require phone number in mentor profile
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
         }
     }
 

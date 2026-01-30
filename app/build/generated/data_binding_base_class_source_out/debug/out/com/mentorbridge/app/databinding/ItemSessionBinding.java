@@ -25,6 +25,9 @@ public final class ItemSessionBinding implements ViewBinding {
   public final LinearLayout actionButtons;
 
   @NonNull
+  public final MaterialButton btnCancel;
+
+  @NonNull
   public final MaterialButton btnComplete;
 
   @NonNull
@@ -61,14 +64,15 @@ public final class ItemSessionBinding implements ViewBinding {
   public final TextView txtStatus;
 
   private ItemSessionBinding(@NonNull MaterialCardView rootView,
-      @NonNull LinearLayout actionButtons, @NonNull MaterialButton btnComplete,
-      @NonNull MaterialButton btnFeedback, @NonNull MaterialButton btnPay,
-      @NonNull MaterialCardView cardView, @NonNull TextView sessionCost,
-      @NonNull TextView sessionDate, @NonNull TextView sessionDuration,
-      @NonNull TextView sessionTime, @NonNull TextView txtAmount, @NonNull TextView txtDate,
-      @NonNull TextView txtName, @NonNull TextView txtStatus) {
+      @NonNull LinearLayout actionButtons, @NonNull MaterialButton btnCancel,
+      @NonNull MaterialButton btnComplete, @NonNull MaterialButton btnFeedback,
+      @NonNull MaterialButton btnPay, @NonNull MaterialCardView cardView,
+      @NonNull TextView sessionCost, @NonNull TextView sessionDate,
+      @NonNull TextView sessionDuration, @NonNull TextView sessionTime, @NonNull TextView txtAmount,
+      @NonNull TextView txtDate, @NonNull TextView txtName, @NonNull TextView txtStatus) {
     this.rootView = rootView;
     this.actionButtons = actionButtons;
+    this.btnCancel = btnCancel;
     this.btnComplete = btnComplete;
     this.btnFeedback = btnFeedback;
     this.btnPay = btnPay;
@@ -113,6 +117,12 @@ public final class ItemSessionBinding implements ViewBinding {
       id = R.id.actionButtons;
       LinearLayout actionButtons = ViewBindings.findChildViewById(rootView, id);
       if (actionButtons == null) {
+        break missingId;
+      }
+
+      id = R.id.btnCancel;
+      MaterialButton btnCancel = ViewBindings.findChildViewById(rootView, id);
+      if (btnCancel == null) {
         break missingId;
       }
 
@@ -184,9 +194,9 @@ public final class ItemSessionBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemSessionBinding((MaterialCardView) rootView, actionButtons, btnComplete,
-          btnFeedback, btnPay, cardView, sessionCost, sessionDate, sessionDuration, sessionTime,
-          txtAmount, txtDate, txtName, txtStatus);
+      return new ItemSessionBinding((MaterialCardView) rootView, actionButtons, btnCancel,
+          btnComplete, btnFeedback, btnPay, cardView, sessionCost, sessionDate, sessionDuration,
+          sessionTime, txtAmount, txtDate, txtName, txtStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

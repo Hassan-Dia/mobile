@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,11 +22,14 @@ import org.json.JSONObject;
 
 public class MentorProfileSetupActivity extends AppCompatActivity {
 
-    private EditText etBio, etSkills, etExperience, etHourlyRate, etCategories;
+    private EditText etBio, etSkills, etExperience, etHourlyRate;
+    private Spinner spinnerCategory;
     private Button btnSubmitProfile;
     private ProgressBar progressBar;
     private SessionManager sessionManager;
     private ApiClient apiClient;
+    
+    private String[] categories = {"Java Development", "Web Development", "Mobile Development", "Data Science", "UI/UX Design"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,27 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
 
         initViews();
         setupListeners();
+        
+        // Check if redirected due to rejection
+        boolean isRejected = getIntent().getBooleanExtra("is_rejected", false);
+        
+        if (isRejected) {
+            // Post dialog to handler to ensure UI is ready
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                if (!isFinishing() && !isDestroyed()) {
+                    showRejectionDialog();
+                }
+            }, 500);
+        }
+    }
+
+    private void showRejectionDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Profile Rejected")
+            .setMessage("Your account was rejected by the administrator. Please update your profile information and resubmit for approval.")
+            .setPositiveButton("OK", null)
+            .setCancelable(true)
+            .show();
     }
 
     private void initViews() {
@@ -43,9 +69,14 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         etSkills = findViewById(R.id.etSkills);
         etExperience = findViewById(R.id.etExperience);
         etHourlyRate = findViewById(R.id.etHourlyRate);
-        etCategories = findViewById(R.id.etCategories);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
         btnSubmitProfile = findViewById(R.id.btnSubmitProfile);
         progressBar = findViewById(R.id.progressBar);
+        
+        // Setup category spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Complete Your Profile");
@@ -61,7 +92,7 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         String skills = etSkills.getText().toString().trim();
         String experience = etExperience.getText().toString().trim();
         String hourlyRateStr = etHourlyRate.getText().toString().trim();
-        String categories = etCategories.getText().toString().trim();
+        String categories = spinnerCategory.getSelectedItem().toString();
 
         // Validation
         if (TextUtils.isEmpty(bio)) {
@@ -99,12 +130,6 @@ public class MentorProfileSetupActivity extends AppCompatActivity {
         } catch (NumberFormatException e) {
             etHourlyRate.setError("Invalid hourly rate");
             etHourlyRate.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(categories)) {
-            etCategories.setError("Categories are required");
-            etCategories.requestFocus();
             return;
         }
 

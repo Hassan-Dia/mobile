@@ -40,10 +40,11 @@ if ($mentorStmt->rowCount() === 0) {
 $mentorRow = $mentorStmt->fetch(PDO::FETCH_ASSOC);
 $mentorId = $mentorRow['id'];
 
-// Get all availability slots for this mentor
+// Get all availability slots for this mentor (only active/available slots)
 $query = "SELECT id, mentor_id, session_date, session_time, duration, topic, is_active, booked_by_user_id, created_at
           FROM availability 
           WHERE mentor_id = :mentor_id
+          AND is_active = 1
           ORDER BY session_date ASC, session_time ASC";
 
 $stmt = $db->prepare($query);

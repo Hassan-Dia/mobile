@@ -43,6 +43,26 @@ public class Utils {
         }
     }
 
+    // Format date as "Day, Month DD" (e.g., "Monday, Feb 3")
+    public static String formatDateWithDay(String dateString) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
+            Date date = inputFormat.parse(dateString);
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+            // Try alternate format with time
+            try {
+                SimpleDateFormat altInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
+                Date date = altInput.parse(dateString);
+                return outputFormat.format(date);
+            } catch (ParseException ex) {
+                return dateString;
+            }
+        }
+    }
+
     // Format time only
     public static String formatTimeOnly(String dateString) {
         try {

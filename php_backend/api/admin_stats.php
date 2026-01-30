@@ -71,8 +71,8 @@ try {
     $stmt->execute();
     $total_sessions = (int)$stmt->fetch(PDO::FETCH_ASSOC)['total'];
     
-    // 6. Calculate total revenue from completed sessions only
-    $query = "SELECT COALESCE(SUM(m.hourly_rate), 0) as revenue 
+    // 6. Calculate total revenue from completed sessions (20% platform fee)
+    $query = "SELECT COALESCE(SUM(m.hourly_rate * 0.20), 0) as revenue 
               FROM sessions s 
               INNER JOIN mentors m ON s.mentor_id = m.id 
               WHERE s.status = 'completed'";

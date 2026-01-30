@@ -83,7 +83,7 @@ public class AdminApprovalFragment extends Fragment implements PendingMentorAdap
                             mentor.setEmail(obj.optString("email", ""));
                             mentor.setSkills(obj.optString("category", "Development"));
                             mentor.setBio(obj.optString("category", "Development") + " - " + obj.optInt("experience_years", 0) + " years experience");
-                            mentor.setHourlyRate(50.0);
+                            mentor.setHourlyRate(obj.optDouble("hourly_rate", 0.0));
                             pendingMentors.add(mentor);
                             android.util.Log.d("AdminApproval", "Added mentor: " + mentor.getFullName());
                         }

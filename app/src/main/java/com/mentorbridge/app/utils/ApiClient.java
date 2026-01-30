@@ -56,8 +56,20 @@ public class ApiClient {
                 error -> {
                     Log.e(TAG, "Login error", error);
                     String errorMsg = "Network error";
-                    if (error.networkResponse != null) {
-                        errorMsg = "Error " + error.networkResponse.statusCode;
+                    
+                    // Try to parse error message from response
+                    if (error.networkResponse != null && error.networkResponse.data != null) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject errorResponse = new JSONObject(responseBody);
+                            if (errorResponse.has("message")) {
+                                errorMsg = errorResponse.getString("message");
+                            } else {
+                                errorMsg = "Error " + error.networkResponse.statusCode;
+                            }
+                        } catch (Exception e) {
+                            errorMsg = "Error " + error.networkResponse.statusCode;
+                        }
                     }
                     listener.onError(errorMsg);
                 }
@@ -223,6 +235,23 @@ public class ApiClient {
                 error -> {
                     Log.e(TAG, "Error completing session", error);
                     listener.onError("Failed to complete session");
+                }
+        );
+        
+        VolleySingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void cancelPendingSession(JSONObject params, ApiResponseListener listener) {
+        String url = BASE_URL + "cancel_pending_session.php";
+        
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                params,
+                response -> listener.onSuccess(response),
+                error -> {
+                    Log.e(TAG, "Error cancelling pending session", error);
+                    listener.onError("Failed to cancel pending session");
                 }
         );
         

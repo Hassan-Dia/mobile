@@ -83,6 +83,11 @@ public class MySessionsFragment extends Fragment {
                 public void onFeedbackClick(Session session) {
                     showFeedbackDialog(session);
                 }
+
+                @Override
+                public void onCancelClick(Session session) {
+                    cancelSession(session);
+                }
             });
         
         recyclerView.setAdapter(adapter);
@@ -159,6 +164,8 @@ public class MySessionsFragment extends Fragment {
                                 session.setMentorId(obj.optInt("mentor_id", 0));
                                 session.setScheduledAt(obj.getString("scheduled_at"));
                                 session.setAmount(obj.getDouble("amount"));
+                                session.setPlatformFee(obj.optDouble("platform_fee", 0.0));
+                                session.setDuration(obj.optInt("duration", 60));
                                 session.setStatus(obj.getString("status"));
                                 session.setPaymentStatus(obj.getString("payment_status"));
                                 session.setMentorName(obj.getString("mentor_name"));
@@ -245,6 +252,41 @@ public class MySessionsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void cancelSession(Session session) {
+        new AlertDialog.Builder(requireContext())
+            .setTitle("Cancel Session")
+            .setMessage("Are you sure you want to cancel this pending session? This will release the time slot.")
+            .setPositiveButton("Yes, Cancel", (dialog, which) -> {
+                try {
+                    JSONObject params = new JSONObject();
+                    params.put("availability_id", session.getAvailabilityId());
+
+                    apiClient.cancelPendingSession(params, new ApiClient.ApiResponseListener() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                if (response.getBoolean("success")) {
+                                    Toast.makeText(requireContext(), "Session cancelled", Toast.LENGTH_SHORT).show();
+                                    loadSessions();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Toast.makeText(requireContext(), "Error cancelling session", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            })
+            .setNegativeButton("No", null)
+            .show();
     }
 
     private void showLoading(boolean show) {

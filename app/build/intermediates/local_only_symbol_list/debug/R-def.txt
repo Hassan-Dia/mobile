@@ -25,9 +25,9 @@ id btnAddSlot
 id btnApprove
 id btnBook
 id btnBookSession
+id btnCancel
 id btnCheckStatus
 id btnComplete
-id btnContactPhone
 id btnFeedback
 id btnLogin
 id btnLogout
@@ -43,7 +43,6 @@ id contentLayout
 id drawerLayout
 id emptyView
 id etBio
-id etCategories
 id etExperience
 id etHourlyRate
 id etSkills
@@ -90,6 +89,7 @@ id sessionCost
 id sessionDate
 id sessionDuration
 id sessionTime
+id spinnerCategory
 id spinnerDay
 id spinnerTime
 id statusTabLayout

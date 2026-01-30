@@ -8,6 +8,10 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
+        "merged": "com.mentorbridge.app-merged_res-45:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.mentorbridge.app-main-47:/drawable/ic_launcher_foreground.xml"
+    },
+    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\layout_activity_mentor_waiting_approval.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\activity_mentor_waiting_approval.xml"
     },
@@ -72,6 +76,10 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\xml\\backup_rules.xml"
     },
     {
+        "merged": "com.mentorbridge.app-merged_res-45:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.mentorbridge.app-main-47:/drawable/ic_launcher_background.xml"
+    },
+    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\layout_fragment_admin_dashboard.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\fragment_admin_dashboard.xml"
     },
@@ -96,10 +104,6 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\menu\\admin_drawer_menu.xml"
     },
     {
-        "merged": "com.mentorbridge.app-merged_res-45:/layout_dialog_add_slot.xml.flat",
-        "source": "com.mentorbridge.app-main-47:/layout/dialog_add_slot.xml"
-    },
-    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\layout_fragment_mentor_list.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\fragment_mentor_list.xml"
     },
@@ -116,12 +120,20 @@
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\item_mentor.xml"
     },
     {
+        "merged": "com.mentorbridge.app-merged_res-45:/drawable_ic_launcher_round.xml.flat",
+        "source": "com.mentorbridge.app-main-47:/drawable/ic_launcher_round.xml"
+    },
+    {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\drawable\\ic_launcher_foreground.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\layout_fragment_availability.xml.flat",
         "source": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-main-47:\\layout\\fragment_availability.xml"
+    },
+    {
+        "merged": "com.mentorbridge.app-merged_res-45:/drawable_ic_launcher.xml.flat",
+        "source": "com.mentorbridge.app-main-47:/drawable/ic_launcher.xml"
     },
     {
         "merged": "C:\\Users\\Invader\\.gradle\\daemon\\8.5\\com.mentorbridge.app-merged_res-45:\\menu_mentee_bottom_menu.xml.flat",

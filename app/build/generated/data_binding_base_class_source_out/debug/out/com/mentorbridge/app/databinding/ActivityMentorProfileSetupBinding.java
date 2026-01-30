@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -28,9 +29,6 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
   public final TextInputEditText etBio;
 
   @NonNull
-  public final TextInputEditText etCategories;
-
-  @NonNull
   public final TextInputEditText etExperience;
 
   @NonNull
@@ -42,19 +40,22 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
   @NonNull
   public final ProgressBar progressBar;
 
+  @NonNull
+  public final Spinner spinnerCategory;
+
   private ActivityMentorProfileSetupBinding(@NonNull ScrollView rootView,
       @NonNull MaterialButton btnSubmitProfile, @NonNull TextInputEditText etBio,
-      @NonNull TextInputEditText etCategories, @NonNull TextInputEditText etExperience,
-      @NonNull TextInputEditText etHourlyRate, @NonNull TextInputEditText etSkills,
-      @NonNull ProgressBar progressBar) {
+      @NonNull TextInputEditText etExperience, @NonNull TextInputEditText etHourlyRate,
+      @NonNull TextInputEditText etSkills, @NonNull ProgressBar progressBar,
+      @NonNull Spinner spinnerCategory) {
     this.rootView = rootView;
     this.btnSubmitProfile = btnSubmitProfile;
     this.etBio = etBio;
-    this.etCategories = etCategories;
     this.etExperience = etExperience;
     this.etHourlyRate = etHourlyRate;
     this.etSkills = etSkills;
     this.progressBar = progressBar;
+    this.spinnerCategory = spinnerCategory;
   }
 
   @Override
@@ -96,12 +97,6 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.etCategories;
-      TextInputEditText etCategories = ViewBindings.findChildViewById(rootView, id);
-      if (etCategories == null) {
-        break missingId;
-      }
-
       id = R.id.etExperience;
       TextInputEditText etExperience = ViewBindings.findChildViewById(rootView, id);
       if (etExperience == null) {
@@ -126,8 +121,14 @@ public final class ActivityMentorProfileSetupBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.spinnerCategory;
+      Spinner spinnerCategory = ViewBindings.findChildViewById(rootView, id);
+      if (spinnerCategory == null) {
+        break missingId;
+      }
+
       return new ActivityMentorProfileSetupBinding((ScrollView) rootView, btnSubmitProfile, etBio,
-          etCategories, etExperience, etHourlyRate, etSkills, progressBar);
+          etExperience, etHourlyRate, etSkills, progressBar, spinnerCategory);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

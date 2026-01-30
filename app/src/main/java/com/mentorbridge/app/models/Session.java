@@ -11,11 +11,24 @@ public class Session {
     private String status;
     private String paymentStatus;
     private double amount;
+    private double platformFee;
     private String mentorName;
     private String menteeName;
     private boolean hasFeedback;
 
     public Session() {}
+
+    public double getPlatformFee() {
+        return platformFee;
+    }
+
+    public void setPlatformFee(double platformFee) {
+        this.platformFee = platformFee;
+    }
+
+    public double getTotalAmount() {
+        return amount + platformFee;
+    }
 
     public int getId() {
         return id;

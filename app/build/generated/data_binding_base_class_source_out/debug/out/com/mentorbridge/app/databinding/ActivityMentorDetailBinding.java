@@ -29,9 +29,6 @@ public final class ActivityMentorDetailBinding implements ViewBinding {
   public final MaterialButton btnBookSession;
 
   @NonNull
-  public final MaterialButton btnContactPhone;
-
-  @NonNull
   public final LinearLayout contentLayout;
 
   @NonNull
@@ -71,16 +68,14 @@ public final class ActivityMentorDetailBinding implements ViewBinding {
   public final TextView txtSkills;
 
   private ActivityMentorDetailBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull MaterialButton btnBookSession, @NonNull MaterialButton btnContactPhone,
-      @NonNull LinearLayout contentLayout, @NonNull ProgressBar progressBar,
-      @NonNull RatingBar ratingBar, @NonNull RecyclerView recyclerAvailability,
-      @NonNull RecyclerView recyclerReviews, @NonNull Toolbar toolbar, @NonNull TextView txtBio,
-      @NonNull TextView txtCategories, @NonNull TextView txtExperience,
-      @NonNull TextView txtHourlyRate, @NonNull TextView txtName, @NonNull TextView txtRatingCount,
-      @NonNull TextView txtSkills) {
+      @NonNull MaterialButton btnBookSession, @NonNull LinearLayout contentLayout,
+      @NonNull ProgressBar progressBar, @NonNull RatingBar ratingBar,
+      @NonNull RecyclerView recyclerAvailability, @NonNull RecyclerView recyclerReviews,
+      @NonNull Toolbar toolbar, @NonNull TextView txtBio, @NonNull TextView txtCategories,
+      @NonNull TextView txtExperience, @NonNull TextView txtHourlyRate, @NonNull TextView txtName,
+      @NonNull TextView txtRatingCount, @NonNull TextView txtSkills) {
     this.rootView = rootView;
     this.btnBookSession = btnBookSession;
-    this.btnContactPhone = btnContactPhone;
     this.contentLayout = contentLayout;
     this.progressBar = progressBar;
     this.ratingBar = ratingBar;
@@ -126,12 +121,6 @@ public final class ActivityMentorDetailBinding implements ViewBinding {
       id = R.id.btnBookSession;
       MaterialButton btnBookSession = ViewBindings.findChildViewById(rootView, id);
       if (btnBookSession == null) {
-        break missingId;
-      }
-
-      id = R.id.btnContactPhone;
-      MaterialButton btnContactPhone = ViewBindings.findChildViewById(rootView, id);
-      if (btnContactPhone == null) {
         break missingId;
       }
 
@@ -214,9 +203,8 @@ public final class ActivityMentorDetailBinding implements ViewBinding {
       }
 
       return new ActivityMentorDetailBinding((CoordinatorLayout) rootView, btnBookSession,
-          btnContactPhone, contentLayout, progressBar, ratingBar, recyclerAvailability,
-          recyclerReviews, toolbar, txtBio, txtCategories, txtExperience, txtHourlyRate, txtName,
-          txtRatingCount, txtSkills);
+          contentLayout, progressBar, ratingBar, recyclerAvailability, recyclerReviews, toolbar,
+          txtBio, txtCategories, txtExperience, txtHourlyRate, txtName, txtRatingCount, txtSkills);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

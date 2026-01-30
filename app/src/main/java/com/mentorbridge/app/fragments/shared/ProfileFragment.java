@@ -109,9 +109,11 @@ public class ProfileFragment extends Fragment {
                                 totalSessions++;
                             }
                             
-                            // Sum up paid amounts
+                            // Sum up paid amounts (base amount + 20% platform fee)
                             if ("paid".equals(paymentStatus)) {
-                                totalSpent += session.optDouble("amount", 0.0);
+                                double baseAmount = session.optDouble("amount", 0.0);
+                                double platformFee = session.optDouble("platform_fee", 0.0);
+                                totalSpent += (baseAmount + platformFee);
                             }
                         }
                         

@@ -74,40 +74,19 @@ try {
         ]);
         
     } elseif ($action === "reject") {
-        // Start transaction to ensure atomic deletion
-        $db->beginTransaction();
+        // Update mentor status to rejected instead of deleting
+        $query = "UPDATE mentors SET approval_status = 'rejected' WHERE user_id = :user_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':user_id', $mentor_user_id);
         
-        try {
-            // Delete user tokens first (or CASCADE will handle it)
-            $query = "DELETE FROM user_tokens WHERE user_id = :user_id";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(':user_id', $mentor_user_id, PDO::PARAM_INT);
-            $stmt->execute();
-            
-            // Delete mentor record (or CASCADE will handle it)
-            $query = "DELETE FROM mentors WHERE user_id = :user_id";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(':user_id', $mentor_user_id, PDO::PARAM_INT);
-            $stmt->execute();
-            
-            // Finally delete the user (CASCADE will clean up remaining references)
-            $query = "DELETE FROM users WHERE id = :user_id";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(':user_id', $mentor_user_id, PDO::PARAM_INT);
-            $stmt->execute();
-            
-            // Commit the transaction
-            $db->commit();
-            
+        if ($stmt->execute()) {
             http_response_code(200);
             echo json_encode([
                 "success" => true,
-                "message" => "Mentor rejected and removed from database"
+                "message" => "Mentor profile rejected. User can login and resubmit."
             ]);
-        } catch (Exception $delete_error) {
-            // Rollback on error
-            $db->rollBack();
-            throw $delete_error;
+        } else {
+            throw new Exception("Failed to update mentor status");
         }
         
     } else {

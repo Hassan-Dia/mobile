@@ -28,6 +28,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         void onPayClick(Session session);
         void onCompleteClick(Session session);
         void onFeedbackClick(Session session);
+        void onCancelClick(Session session);
     }
 
     public SessionAdapter(Context context, List<Session> sessions, boolean isMentor, OnSessionActionListener listener) {
@@ -50,18 +51,48 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         
         String displayName = isMentor ? session.getMenteeName() : session.getMentorName();
         holder.txtName.setText(displayName);
-        holder.txtDate.setText(Utils.formatDate(session.getScheduledAt()));
-        holder.txtAmount.setText(Utils.formatPrice(session.getAmount()));
+        
+        // Parse scheduled_at to extract date and time (format: "YYYY-MM-DD HH:MM:SS")
+        String scheduledAt = session.getScheduledAt();
+        String displayDate = "";
+        String displayDateWithDay = "";
+        String displayTime = "";
+        
+        if (scheduledAt != null && scheduledAt.contains(" ")) {
+            String[] parts = scheduledAt.split(" ");
+            displayDate = Utils.formatDate(parts[0]);
+            displayDateWithDay = Utils.formatDateWithDay(parts[0]);
+            displayTime = parts.length > 1 ? parts[1].substring(0, 5) : ""; // HH:MM
+        }
+        
+        holder.txtDate.setText(displayDateWithDay);
+        
+        // Mentees pay base amount + 20% platform fee, mentors see only their earnings
+        double displayAmount = isMentor ? session.getAmount() : session.getTotalAmount();
+        holder.txtAmount.setText(Utils.formatPrice(displayAmount));
         holder.txtStatus.setText(Utils.getStatusText(session.getStatus()));
+        
+        // Populate detail fields
+        holder.sessionDate.setText(displayDate);
+        holder.sessionTime.setText(displayTime);
+        holder.sessionDuration.setText(session.getDuration() + " min");
+        holder.sessionCost.setText(Utils.formatPrice(displayAmount));
         
         // Show different buttons based on role and status
         holder.btnPay.setVisibility(View.GONE);
         holder.btnComplete.setVisibility(View.GONE);
+        holder.btnCancel.setVisibility(View.GONE);
         holder.btnFeedback.setVisibility(View.GONE);
 
         if (!isMentor && session.isPaymentPending()) {
             holder.btnPay.setVisibility(View.VISIBLE);
             holder.btnPay.setOnClickListener(v -> listener.onPayClick(session));
+        }
+
+        // Mentors can cancel pending sessions only (not yet paid)
+        if (isMentor && "pending".equals(session.getStatus())) {
+            holder.btnCancel.setVisibility(View.VISIBLE);
+            holder.btnCancel.setOnClickListener(v -> listener.onCancelClick(session));
         }
 
         // Mentors can only complete sessions that are confirmed (paid)
@@ -84,7 +115,8 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView txtName, txtDate, txtAmount, txtStatus;
-        Button btnPay, btnComplete, btnFeedback;
+        TextView sessionDate, sessionTime, sessionDuration, sessionCost;
+        Button btnPay, btnComplete, btnCancel, btnFeedback;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -93,8 +125,13 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             txtDate = itemView.findViewById(R.id.txtDate);
             txtAmount = itemView.findViewById(R.id.txtAmount);
             txtStatus = itemView.findViewById(R.id.txtStatus);
+            sessionDate = itemView.findViewById(R.id.sessionDate);
+            sessionTime = itemView.findViewById(R.id.sessionTime);
+            sessionDuration = itemView.findViewById(R.id.sessionDuration);
+            sessionCost = itemView.findViewById(R.id.sessionCost);
             btnPay = itemView.findViewById(R.id.btnPay);
             btnComplete = itemView.findViewById(R.id.btnComplete);
+            btnCancel = itemView.findViewById(R.id.btnCancel);
             btnFeedback = itemView.findViewById(R.id.btnFeedback);
         }
     }

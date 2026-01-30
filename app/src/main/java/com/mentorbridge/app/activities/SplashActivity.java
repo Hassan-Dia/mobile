@@ -31,17 +31,18 @@ public class SplashActivity extends AppCompatActivity {
                         // Redirect to profile setup
                         intent = new Intent(SplashActivity.this, MentorProfileSetupActivity.class);
                     } else {
-                        // Check approval status
+                        // Profile is complete, check approval status
                         String approvalStatus = sessionManager.getApprovalStatus();
                         if ("approved".equals(approvalStatus)) {
                             // Approved, go to main app
                             intent = new Intent(SplashActivity.this, MainActivity.class);
                         } else if ("rejected".equals(approvalStatus)) {
-                            // Rejected, go back to profile setup
-                            sessionManager.setProfileComplete(false);
+                            // Rejected, redirect to profile setup with rejection flag
                             intent = new Intent(SplashActivity.this, MentorProfileSetupActivity.class);
+                            intent.putExtra("is_rejected", true);
+                            sessionManager.setProfileComplete(false);
                         } else {
-                            // Pending or unknown, show waiting page
+                            // Pending, show waiting/approval page
                             intent = new Intent(SplashActivity.this, MentorWaitingApprovalActivity.class);
                         }
                     }

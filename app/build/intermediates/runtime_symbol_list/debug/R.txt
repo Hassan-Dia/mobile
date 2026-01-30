@@ -3244,9 +3244,9 @@ int id btnAddSlot 0x7f080068
 int id btnApprove 0x7f080069
 int id btnBook 0x7f08006a
 int id btnBookSession 0x7f08006b
+int id btnCancel 0x7f080276
 int id btnCheckStatus 0x7f08006c
 int id btnComplete 0x7f08006d
-int id btnContactPhone 0x7f08006e
 int id btnFeedback 0x7f08006f
 int id btnLogin 0x7f080070
 int id btnLogout 0x7f080071
@@ -3343,7 +3343,6 @@ int id endToStart 0x7f0800ca
 int id enterAlways 0x7f0800cb
 int id enterAlwaysCollapsed 0x7f0800cc
 int id etBio 0x7f0800cd
-int id etCategories 0x7f0800ce
 int id etExperience 0x7f0800cf
 int id etHourlyRate 0x7f0800d0
 int id etSkills 0x7f0800d1
@@ -3626,6 +3625,7 @@ int id snapMargins 0x7f0801e5
 int id south 0x7f0801e6
 int id spacer 0x7f0801e7
 int id special_effects_controller_view_tag 0x7f0801e8
+int id spinnerCategory 0x7f080277
 int id spinnerDay 0x7f0801e9
 int id spinnerTime 0x7f0801ea
 int id spline 0x7f0801eb

@@ -3245,9 +3245,9 @@ id btnAddSlot
 id btnApprove
 id btnBook
 id btnBookSession
+id btnCancel
 id btnCheckStatus
 id btnComplete
-id btnContactPhone
 id btnFeedback
 id btnLogin
 id btnLogout
@@ -3344,7 +3344,6 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id etBio
-id etCategories
 id etExperience
 id etHourlyRate
 id etSkills
@@ -3627,6 +3626,7 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinnerCategory
 id spinnerDay
 id spinnerTime
 id spline

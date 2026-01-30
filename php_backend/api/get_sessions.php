@@ -35,6 +35,9 @@ if ($userId) {
         $pendingStmt->execute();
         
         while ($row = $pendingStmt->fetch(PDO::FETCH_ASSOC)) {
+            $baseAmount = (float)$row['hourly_rate'];
+            $platformFee = $baseAmount * 0.20;
+            
             $session = [
                 "id" => (int)$row['id'],
                 "availability_id" => (int)$row['id'],
@@ -45,7 +48,8 @@ if ($userId) {
                 "duration" => (int)$row['duration'],
                 "status" => "pending",
                 "payment_status" => "pending",
-                "amount" => (float)$row['hourly_rate'],
+                "amount" => $baseAmount,
+                "platform_fee" => $platformFee,
                 "has_feedback" => false,
                 "source" => "availability"
             ];
@@ -68,6 +72,9 @@ if ($userId) {
         $pendingStmt->execute();
         
         while ($row = $pendingStmt->fetch(PDO::FETCH_ASSOC)) {
+            $baseAmount = (float)$row['hourly_rate'];
+            $platformFee = $baseAmount * 0.20;
+            
             $session = [
                 "id" => (int)$row['id'],
                 "availability_id" => (int)$row['id'],
@@ -78,7 +85,8 @@ if ($userId) {
                 "duration" => (int)$row['duration'],
                 "status" => "pending",
                 "payment_status" => "pending",
-                "amount" => (float)$row['hourly_rate'],
+                "amount" => $baseAmount,
+                "platform_fee" => $platformFee,
                 "has_feedback" => false,
                 "source" => "availability"
             ];
@@ -129,6 +137,9 @@ if ($userId) {
         $reviewStmt->execute();
         $hasFeedback = $reviewStmt->rowCount() > 0;
         
+        $baseAmount = (float)$row['hourly_rate'];
+        $platformFee = $baseAmount * 0.20;
+        
         $session = [
             "id" => (int)$row['id'],
             "mentor_id" => (int)$row['mentor_id'],
@@ -138,7 +149,8 @@ if ($userId) {
             "duration" => 60,
             "status" => $row['status'],
             "payment_status" => "paid",
-            "amount" => (float)$row['hourly_rate'],
+            "amount" => $baseAmount,
+            "platform_fee" => $platformFee,
             "has_feedback" => $hasFeedback,
             "source" => "sessions"
         ];

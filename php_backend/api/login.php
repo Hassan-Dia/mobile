@@ -61,10 +61,9 @@ if (!empty($data->email) && !empty($data->password)) {
                     $role = "mentor";
                     $approval_status = $mentor_row['approval_status'];
                     
-                    // Profile is complete if approved
-                    if ($approval_status === 'approved') {
-                        $is_profile_complete = true;
-                    }
+                    // Profile is complete if mentor record exists (approved, pending, or rejected)
+                    // The app will handle routing based on approval_status
+                    $is_profile_complete = true;
                 }
             }
             
